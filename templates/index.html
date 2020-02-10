@@ -1,9 +1,66 @@
 {% extends 'base.html' %}
 
 {% block head %} 
-<title>Private Balance Sheet</title>
+<title>Private Bilanzerstellung</title>
 {% endblock %}
 
 {% block body %}
-Das ist die Privatbilanz.
+<h1>Private Bilanzerstellung</h1>
+<hr>
+
+<form>
+Girokonten: <input type='text' name='giro' id='giro'>
+</form>
+
+<hr>
+
+<table class="table">
+    <tr>
+        <th colspan="3">Aktiva = Geldanlagen</th>
+    </tr>
+    <tr>
+        <th>Liquides Vermögen / Bargeld</th>
+        <th>%(tbd)</th>
+        <th>Summe(tbd)</th>
+    </tr>
+    <tr>
+        {% for p in pbs %}
+        <td>Girokonten</td>
+        <td></td>
+        <td>{{ p.giro }}</td>
+        
+    </tr>
+    <tr>
+        <td>Festgelder</td>
+        <td></td>
+        <td>{{ p.fest }}</td>
+        
+    </tr>
+    <tr>
+        <td>Sparbücher</td>
+        <td></td>
+        <td>{{ p.spar }}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th>Immoblien</th>
+        <th>%(tbd)</th>
+        <th>Summe(tbd)</th>
+    </tr>
+    <tr>
+        <td>Eigenheime</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Immobilien</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Fonds</td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
 {% endblock %}
