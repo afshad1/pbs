@@ -8,8 +8,26 @@
 <h1>Private Bilanzerstellung</h1>
 <hr>
 
-<form>
-Girokonten: <input type='text' name='giro' id='giro'>
+<form>    
+    <fieldset>
+        <!-- <legend>Neues Aktiva hinzufügen:</legend> -->
+        <div class="form-group">
+            <!-- <label for='kat'>Kategorie:</label> -->
+            <select id="kat" class="form-control">
+                <option value="liq">Liquides Vermögen / Bargeld</option>
+                <option value="immo">Immobilien</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <!-- <label for='type'>Typ:</label> -->
+            <input id='type' class="form-control"type='text' name='type' placeholder="Typ z.B. Girokonten">
+        </div>
+        <div class="form-group">
+            <!-- <label for='value'>Wert:</label> -->
+            <input id='value' class="form-control"type='text' name='value' placeholder="Wert">
+        </div>
+        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+    </fieldset>
 </form>
 
 <hr>
