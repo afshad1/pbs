@@ -2,6 +2,8 @@
 
 {% block head %} 
 <title>Private Bilanzerstellung</title>
+
+
 {% endblock %}
 
 {% block body %}
@@ -20,65 +22,108 @@
         </div>
         <div class="form-group">
             <!-- <label for='type'>Typ:</label> -->
-            <input id='type' class="form-control"type='text' name='type' placeholder="Typ z.B. Girokonten">
+            <input id='aktivaType' class="form-control"type='text' name='aktivaType' placeholder="Typ z.B. Girokonten">
         </div>
         <div class="form-group">
             <!-- <label for='value'>Wert:</label> -->
-            <input id='value' class="form-control"type='text' name='value' placeholder="Wert">
+            <input id='aktivaValue' class="form-control"type='text' name='aktivaValue' placeholder="Wert">
         </div>
-        <button type="submit" class="btn btn-primary">Hinzufügen</button>
+        <button type="button" class="btn btn-primary" onclick="aktivaUpdate()">Hinzufügen</button>
     </fieldset>
 </form>
 
 <hr>
 
-<table class="table">
-    <tr>
-        <th colspan="3">Aktiva = Geldanlagen</th>
-    </tr>
-    <tr>
-        <th>Liquides Vermögen / Bargeld</th>
-        <th>%(tbd)</th>
-        <th>Summe(tbd)</th>
-    </tr>
-    <tr>
-        {% for p in pbs %}
-        <td>Girokonten</td>
-        <td></td>
-        <td>{{ p.giro }}</td>
-        
-    </tr>
-    <tr>
-        <td>Festgelder</td>
-        <td></td>
-        <td>{{ p.fest }}</td>
-        
-    </tr>
-    <tr>
-        <td>Sparbücher</td>
-        <td></td>
-        <td>{{ p.spar }}</td>
-        {% endfor %}
-    </tr>
-    <tr>
-        <th>Immoblien</th>
-        <th>%(tbd)</th>
-        <th>Summe(tbd)</th>
-    </tr>
-    <tr>
-        <td>Eigenheime</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Immobilien</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Fonds</td>
-        <td></td>
-        <td></td>
-    </tr>
+<!-- Todo: Extract Table to template-->
+<table id="liquid" class="table">
+    <thead class="thead-light">
+        <!-- <tr>
+            <th colspan="3">Aktiva = Geldanlagen</th>
+        </tr> -->
+
+        <tr>
+            <th scope="col">Liquides Vermögen / Bargeld</th>
+            <th scope="col">%(tbd)</th>
+            <th scope="col">Summe(tbd)</th>
+            <th scope="col">Löschen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for p in pbs %}
+            <th scope="row">Girokonten</th>
+            <td></td>
+            <td>{{ p.giro }}</td>
+            <td>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" onclick="aktivaDelete(this)">&times;</span>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Festgelder</th>
+            <td></td>
+            <td>{{ p.fest }}</td>
+            <td>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" onclick="aktivaDelete(this)">&times;</span>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Sparbücher</th>
+            <td></td>
+            <td>{{ p.spar }}</td>
+            <td>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" onclick="aktivaDelete(this)">&times;</span>
+                </button>
+            </td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+<table id="immo" class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Immoblien</th>
+            <th>%(tbd)</th>
+            <th>Summe(tbd)</th>
+            <th scope="col">Löschen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Eigenheime</th>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" onclick="aktivaDelete(this)">&times;</span>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Immobilien</th>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" onclick="aktivaDelete(this)">&times;</span>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Fonds</th>
+            <td></td>
+            <td>234234</td>
+            <td>
+                <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" onclick="aktivaDelete(this)">&times;</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
 </table>
 {% endblock %}
+
