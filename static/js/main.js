@@ -25,9 +25,18 @@ function aktivaAdd() {
     
 }
 
+// Valid aktiva add form
+function isValidAktivaForm() {
+    if ($("#aktivaType").val() != null && $("#aktivaType").val() != '') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Add only if aktiva type is set and clear form
 function aktivaUpdate() {
-    if ($("#aktivaType").val() != null && $("#aktivaType").val() != '') {
+    if (isValidAktivaForm()) {
         aktivaAdd();
         clearForm();
         $("#aktivaType").focus();
