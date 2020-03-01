@@ -1,34 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_cors import CORS
-from db_controller import get_pbs, create_aktiva, get_pbsById, get_db
-#from flask_sqlalchemy import SQLAlchemy
+from db_controller import get_pbsByDocId, create_aktiva, get_pbsById, get_db
 
 # instantiate the app
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pbs.db'
-#db = SQLAlchemy(app)
 
 # enable CORS (Cross Origin Ressource Sharing)
 CORS(app)
-
-# Testdata
-pbs_data = [
-    {
-        'username': 'broken person',
-        'giro': '3432432',
-        'fest': '12332434',
-        'spar': '343',        
-    }
-]
-
-
-# Add full database functionality later (start with tinydb first)
-# class PBS(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     giro = db.Column(db.String(100), nullable=True)
-
-#     def __repr__(self):
-#         return 'PBS ' + str(self.id)
 
 # Main index route
 @app.route("/")
