@@ -1,18 +1,19 @@
 // Create new entry
 function aktivaAdd() {
-    var type = $("#aktivaType").val();
-    var value = $("#aktivaValue").val();
-    var tr = "<tr>" +
-    "<th>" + type + "</th>" +
-    "<td></td>" +
-    "<td>" + value + "</td>" +
-    "<td>" +
-    "<button type=\"button\" class=\"close\" aria-label=\"Close\" data-toggle=\"modal\" data-target=\"#deleteModal\">" +
-    "<span aria-hidden=\"true\">&times;</span>" +
-    "</button>" +
-    "</td>" +
-"</tr>";
-
+    var type = $("#inputAktivaType").val();
+    var value = $("#inputAktivaValue").val();
+    var tr = 
+    "<tr>" +
+        "<th>" + type + "</th>" +
+        "<td></td>" +
+        "<td>" + value + "</td>" +
+        "<td>" +
+        "<button type=\"button\" class=\"close\" aria-label=\"Close\" data-toggle=\"modal\" data-target=\"#deleteModal\">" +
+        "<span aria-hidden=\"true\">&times;</span>" +
+        "</button>" +
+        "</td>" +
+    "</tr>";
+    // Add to liquid or to immobilien
     if ($("#kat").val() == "liq") {
         $("#liquid tbody").append(
             tr
@@ -27,7 +28,7 @@ function aktivaAdd() {
 
 // Valid aktiva add form
 function isValidAktivaForm() {
-    if ($("#aktivaType").val() != null && $("#aktivaType").val() != '') {
+    if ($("#inputAktivaType").val() != null && $("#inputAktivaType").val() != '') {
         return true;
     } else {
         return false;
@@ -39,7 +40,7 @@ function aktivaUpdate() {
     if (isValidAktivaForm()) {
         aktivaAdd();
         clearForm();
-        $("#aktivaType").focus();
+        $("#inputAktivaType").focus();
     } else {
         alert("Bitte geben Sie einen Typ an");
     }
@@ -47,8 +48,8 @@ function aktivaUpdate() {
 
 // Clear the form
 function clearForm() {
-    $("#aktivaType").val("");
-    $("#aktivaValue").val("");
+    $("#inputAktivaType").val("");
+    $("#inputAktivaValue").val("");
 }
 
 // Remove entry

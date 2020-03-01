@@ -12,23 +12,19 @@
 
 <form action="/add" method="post">  
     <fieldset>
-        <!-- <legend>Neues Aktiva hinzufügen:</legend> -->
         <div class="form-group">
-            <!-- <label for='kat'>Kategorie:</label> -->
             <select id="kat" class="form-control" name="aktivaKat">
                 <option value="liq">Liquides Vermögen / Bargeld</option>
                 <option value="immo">Immobilien</option>
             </select>
         </div>
         <div class="form-group">
-            <!-- <label for='type'>Typ:</label> -->
-            <input id="atype" class="form-control" type="text" name="aktivaType" placeholder="Typ z.B. Girokonten">
+            <input id="inputAktivaType" class="form-control" type="text" name="aktivaType" placeholder="Typ z.B. Girokonten">
         </div>
         <div class="form-group">
-            <!-- <label for='value'>Wert:</label> -->
-            <input id="avalue" class="form-control" type="text" name="aktivaValue" placeholder="Wert">
+            <input id="inputAktivaValue" class="form-control" type="text" name="aktivaValue" placeholder="Wert">
         </div>
-        <button type="submit" class="btn btn-primary" onclick="aktivaUpdate()">Hinzufügen</button>
+        <button type="submit" class="btn btn-primary" onsubmit="aktivaUpdate()">Hinzufügen</button>
     </fieldset>
 </form>
 
@@ -38,10 +34,7 @@
 
 <!-- Todo: Extract Table to template-->
 <table id="liquid" class="table">
-    <thead class="thead-light">
-        <!-- <tr>
-            <th scope="col" colspan="4">Aktiva / Geldanlagen / Assets</th>
-        </tr> -->        
+    <thead class="thead-light">    
         <tr>
             <th scope="col">Liquides Vermögen / Bargeld</th>
             <th scope="col">100%(tbd)</th>
@@ -74,36 +67,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">Eigenheime</th>
+        {% for p in pbs.aktiva_immo %}     
+        <tr>                  
+            <th scope="row">{{ p.type }}</th>
             <td></td>
-            <td></td>
+            <td>{{ p.value }}</td>
             <td>
                 <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
                 <span aria-hidden="true">&times;</span>
                 </button>
-            </td>
+            </td>                    
         </tr>
-        <tr>
-            <th scope="row">Fremdgenutzte Immobilien</th>
-            <td></td>
-            <td></td>
-            <td>
-                <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">Fonds</th>
-            <td></td>
-            <td>234234</td>
-            <td>
-                <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </td>
-        </tr>
+        {% endfor %} 
     </tbody>
 </table>
 

@@ -5,6 +5,12 @@ import uuid
 db_name = 'db.json'
 db_table = 'pbs'
 
+def get_db():
+    db = TinyDB(db_name)
+    pbs = db.all()
+    db.close()
+    return pbs
+
 def get_pbs(id):
     db = TinyDB(db_name)
     table = db.table(db_table)
@@ -28,8 +34,10 @@ def get_pbsById(id):
 
 def create_aktiva(id, kat, type, value):
     db = TinyDB(db_name)
-    table = db.table(db_table)
+    # Get first entry
+    # first_doc = db.all()[0]
     Pbs = Query()
-    create_id = table.update(add('aktiva_liq', [{'type': type, 'value': value}]), Pbs._id == id)
+    katTbl = 'aktiva_liq' if kat == 'liq' else 'aktiva_immo'
+    create_id = db.update(add(katTbl, [{'type': type, 'value': value}]), Pbs._id == id)
     db.close()
     return create_id
