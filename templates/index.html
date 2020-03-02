@@ -10,12 +10,12 @@
 <h1>Private Bilanzerstellung</h1>
 <hr>
 
-<form action="/add" method="post">  
+<form id="addForm" action="{{ url_for('add_item') }}" method="post">  
     <fieldset>
         <div class="form-group">
             <select id="kat" class="form-control" name="aktivaKat">
-                <option value="liq">Liquides Vermögen / Bargeld</option>
-                <option value="immo">Immobilien</option>
+                <option value="aktiva_liq">Liquides Vermögen / Bargeld</option>
+                <option value="aktiva_immo">Immobilien</option>
             </select>
         </div>
         <div class="form-group">
@@ -43,15 +43,17 @@
         </tr>
     </thead>
     <tbody>
-        {% for p in pbs.aktiva_liq %}     
+        {% for liq in aktiva_liq %}     
         <tr>                  
-            <th scope="row">{{ p.type }}</th>
+            <th scope="row">{{ liq.type }}</th>
             <td></td>
-            <td>{{ p.value }}</td>
+            <td>{{ liq.value }}</td>
             <td>
-                <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                <form action="{{ url_for('delete_item', item_id=liq['_id']) }}" method="post" id="deleteForm">
+                    <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </form>
             </td>                    
         </tr>
         {% endfor %}    
@@ -67,15 +69,17 @@
         </tr>
     </thead>
     <tbody>
-        {% for p in pbs.aktiva_immo %}     
+        {% for immo in aktiva_immo %}     
         <tr>                  
-            <th scope="row">{{ p.type }}</th>
+            <th scope="row">{{ immo.type }}</th>
             <td></td>
-            <td>{{ p.value }}</td>
+            <td>{{ immo.value }}</td>
             <td>
-                <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                <form action="{{ url_for('delete_item', item_id=immo['_id']) }}" method="post" id="deleteForm">
+                    <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#deleteModal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </form>
             </td>                    
         </tr>
         {% endfor %} 
@@ -83,24 +87,24 @@
 </table>
 
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Löschen bestätigen</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Löschen bestätigen</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Möchte Sie den Eintrag löschen?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
+            <button type="button" class="btn btn-danger" id="btnDeleteConfirm" data-dismiss="modal">Löschen</button>
+        </div>
+        </div>
     </div>
-    <div class="modal-body">
-        Möchte Sie den Eintrag löschen?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schliessen</button>
-        <button type="button" class="btn btn-danger" id="btnDeleteConfirm" data-dismiss="modal">Löschen</button>
-    </div>
-    </div>
-</div>
 </div>
 {% endblock %}
 

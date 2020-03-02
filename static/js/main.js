@@ -52,27 +52,16 @@ function clearForm() {
     $("#inputAktivaValue").val("");
 }
 
-// Remove entry
-function aktivaDelete(ctl) {
-    $(ctl).parents("tr").remove();
-}
-
-// Confirm remove entry
-function aktivaDelete2() {
-    $(".close").click(function () {
-        var id = $(this).data("uid");
-        console.log(id);
-    })
-}
-
-
 $(document).ready(function(){
-    // Delete row on confirm modal dialog
+    // Delete on confirm modal dialog
     $('#deleteModal').on('shown.bs.modal', function (event) {
         $('#btnDeleteConfirm').trigger('focus')
-        var button = $(event.relatedTarget)
-        $("#btnDeleteConfirm").click(function() {
-            $(button).parents("tr").remove();
+            var button = $(event.relatedTarget)
+        $("#btnDeleteConfirm").click(function(e) {
+            $(button).closest('#deleteForm').submit(); // search the closest deleteForm and submit
+
+            // might be required later: full js-editing and saving only to backend
+            //$(button).parents("tr").remove();
         });       
     });
 });
