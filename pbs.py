@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_cors import CORS
 from db_controller import get_pbsByDocId, get_pbsById, get_db, delete_pbsById, get_pbsByKat, create_pbs
+from pbs_helper import calcSum
 
 # instantiate the app
 app = Flask(__name__)
@@ -12,8 +13,10 @@ CORS(app)
 @app.route("/")
 def index():
     aktiva_liq = get_pbsByKat("aktiva_liq")
+    liq_sum = calcSum(aktiva_liq)
     aktiva_immo = get_pbsByKat("aktiva_immo")
-    return render_template("index.html", aktiva_liq=aktiva_liq, aktiva_immo=aktiva_immo)
+    immo_sum = calcSum(aktiva_immo)
+    return render_template("index.html", aktiva_liq=aktiva_liq, aktiva_immo=aktiva_immo, liq_sum=liq_sum, immo_sum=immo_sum)
 
 # Route for adding items
 @app.route("/add", methods=['POST'])
@@ -36,3 +39,5 @@ def get_req():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
