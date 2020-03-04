@@ -14,7 +14,7 @@ function aktivaAdd() {
         "</td>" +
     "</tr>";
     // Add to liquid or to immobilien
-    if ($("#kat").val() == "liq") {
+    if ($("#kat").val() == "aktiva_liq") {
         $("#liquid tbody").append(
             tr
         );
@@ -39,8 +39,6 @@ function isValidAktivaForm() {
 function aktivaUpdate() {
     if (isValidAktivaForm()) {
         aktivaAdd();
-        clearForm();
-        $("#inputAktivaType").focus();
     } else {
         alert("Bitte geben Sie einen Typ an");
     }
@@ -53,6 +51,7 @@ function clearForm() {
 }
 
 $(document).ready(function(){
+    $("#inputAktivaType").focus();
     // Delete on confirm modal dialog
     $('#deleteModal').on('shown.bs.modal', function (event) {
         $('#btnDeleteConfirm').trigger('focus')
@@ -64,4 +63,12 @@ $(document).ready(function(){
             //$(button).parents("tr").remove();
         });       
     });
+    $('#addForm').on('submit', function(e){
+        if (isValidAktivaForm()) {
+            aktivaUpdate();
+        } else {
+            e.preventDefault();
+            alert("Bitte geben Sie einen Typ an");
+        }
+      });
 });

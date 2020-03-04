@@ -31,13 +31,12 @@ def get_pbsById(id):
     db.close()
     return pbs
 
-def create_pbs(kat, type, value):
+def create_pbs(kat, type1, value):
     db = TinyDB(db_name)
-    Pbs = Query()
     create_id = db.insert({
     '_id': uuid.uuid4().hex,
     'kat': kat,
-    'type': type,
+    'type': type1,
     'value': value,
     })
     db.close()
