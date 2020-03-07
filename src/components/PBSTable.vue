@@ -34,12 +34,12 @@
 
     </b-form>
     <!-- TODO Iteration der Tabellen verbessern -->
-    <div v-for="v in aktiva_kats" :key="v">
+    <div v-for="v in aktiva_kats" :key="v.value">
       <b-table :filter="v.value"
       outlined :fields="fields" :items="pbsdata" head-variant="light">
       <!-- Display name Type -->
       <template v-slot:head(type)>
-        {{ v.value }}
+        {{ v.text }}
       </template>
 
       <!-- Display calculated sum of Value -->
@@ -54,7 +54,7 @@
 
       <!-- Display delete button -->
       <template v-slot:cell(delete)="data">
-        <b-button @click="deleteAktiva(data.index)">X</b-button>
+        <b-button @click="deleteAktiva(data.value)">X</b-button>
       </template>
 
       </b-table>
@@ -102,6 +102,11 @@ export default {
           type: 'Sparbücher',
           value: '100000',
         },
+        {
+          kat: 'immo',
+          type: 'Eigenheime',
+          value: '200000',
+        },
       ],
     };
   },
@@ -138,6 +143,7 @@ export default {
       this.form.value = '';
     },
     deleteAktiva(index) {
+      console.log(index);
       // alert(JSON.stringify(data));
       this.pbsdata.splice(index, 1);
     },
