@@ -15,6 +15,19 @@ Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
+Vue.mixin({
+  methods: {
+    capitalizeFirstLetter: (str) => str.charAt(0).toUpperCase() + str.slice(1),
+    formatCurrency(num) {
+      const result = new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(num);
+      return result;
+    },
+  },
+});
+
 new Vue({
   render: (h) => h(App),
 }).$mount('#app');

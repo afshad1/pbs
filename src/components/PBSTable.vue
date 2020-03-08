@@ -71,14 +71,21 @@ export default {
         {
           key: 'percent',
           label: '100%',
-          formatter: (value, key, item) => {
-            // this.calcKatSum(item.kat) might be not cheap as it calculates sum on each row
-            // - todo better way, without formatter and with function
-            const result = ((item.value / this.calcKatSum(item.kat)) * 100).toFixed(2).concat('%');
+          formatter: (val, key, item) => {
+            // Get pre-calculated sum value of category to avoid recalculation on each call
+            const index = this.aktiva_kats.findIndex(({ value }) => value === item.kat);
+            const result = ((item.value / this.aktiva_kats[index].sum) * 100).toFixed(2).concat('%');
             return result;
           },
         },
-        { key: 'value', label: 'Value' },
+        {
+          key: 'value',
+          label: 'Value',
+          formatter: (item) => {
+            const result = this.formatCurrency(item);
+            return result;
+          },
+        },
         { key: 'delete', label: 'Löschen' },
       ],
       pbsdata: [
@@ -127,13 +134,10 @@ export default {
       filteredData.forEach((k) => {
         katSum += (parseFloat(k.value));
       });
+      // Add category sum to array to avoid recalculations
+      const index = this.aktiva_kats.findIndex(({ value }) => value === kat);
+      this.aktiva_kats[index].sum = katSum;
       return katSum;
-    },
-    // TODO: Calculations of percentage
-    calcKatPercent() {
-      const percentSum = 0;
-
-      return percentSum;
     },
   },
   watch: {
