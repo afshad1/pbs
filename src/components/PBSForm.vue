@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-card bg-variant="light">
      <b-form @reset="onReset" @submit="onSubmit" v-if="show">
       <b-form-group id="input-group-1" label-for="input-1">
         <b-form-select
@@ -33,6 +34,7 @@
       <b-button type="reset" variant="danger">Reset</b-button>
 
     </b-form>
+    </b-card>
   </div>
 </template>
 

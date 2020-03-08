@@ -3,12 +3,14 @@
     <!-- ForEach item in select input create a new table -->
     <div v-for="v in aktiva_kats" :key="v.value">
       <b-table
-      outlined
+      outlined fixed striped small
       :fields="fields"
       :items="pbsdata"
       :filter="v.value"
       :filter-function="filterPbs"
-      head-variant="light">
+      head-row-variant="info"
+      >
+
       <!-- Display name Type in header -->
       <template v-slot:head(type)>
         {{ v.text }}
@@ -31,7 +33,11 @@
 
       <!-- Display delete button in cells -->
       <template v-slot:cell(delete)="data">
-        <b-button @click="deleteAktiva(data.item)">X</b-button>
+        <!-- <b-button size="sm" variant="danger" @click="deleteAktiva(data.item)"> -->
+          <b-link @click="deleteAktiva(data.item)">
+          <b-icon-trash-fill font-scale="1.5"></b-icon-trash-fill>
+          </b-link>
+        <!-- </b-button> -->
       </template>
 
       </b-table>
@@ -41,8 +47,12 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import { BIconTrashFill } from 'bootstrap-vue';
 
 export default {
+  components: {
+    BIconTrashFill,
+  },
   name: 'PBSTable',
   props: {
     formData: {
