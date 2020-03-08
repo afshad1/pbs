@@ -4,21 +4,31 @@
     <b-navbar-brand href="#">Private Bilanzerstellung</b-navbar-brand>
     </b-navbar>
     <br>
-    <!-- <PBSForm /> -->
+    <PBSForm @inputData="newFormData"/>
     <!-- <br> -->
-    <PBSTable />
+    <PBSTable :formData="newformData"/>
   </div>
 </template>
 
 <script>
-// import PBSForm from './components/PBSForm.vue';
+import PBSForm from './components/PBSForm.vue';
 import PBSTable from './components/PBSTable.vue';
 
 export default {
   name: 'App',
   components: {
-    // PBSForm,
+    PBSForm,
     PBSTable,
+  },
+  data() {
+    return {
+      newformData: {},
+    };
+  },
+  methods: {
+    newFormData(data) {
+      this.newformData = data;
+    },
   },
 };
 </script>

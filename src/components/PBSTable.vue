@@ -1,60 +1,37 @@
 <template>
   <div>
-    <b-form @reset="onReset" @submit="onSubmit" v-if="show">
-      <b-form-group id="input-group-1" label-for="input-1">
-        <b-form-select
-          id="input-1"
-          v-model="form.aktiva_kat"
-          :options="aktiva_kats"
-          required
-        ></b-form-select>
-      </b-form-group>
-
-      <b-form-group id="input-group-2" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          type="text"
-          v-model="form.type"
-          required
-          placeholder="Typ z.B. Girokonten"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-3" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          type="number"
-          v-model="form.value"
-          placeholder="Wert"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Hinzufügen</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-
-    </b-form>
-    <!-- TODO Iteration der Tabellen verbessern -->
+    <!-- ForEach item in select input create a new table -->
     <div v-for="v in aktiva_kats" :key="v.value">
-      <b-table :filter="v.value"
-      outlined :fields="fields" :items="pbsdata" head-variant="light">
-      <!-- Display name Type -->
+      <b-table
+      outlined
+      :fields="fields"
+      :items="pbsdata"
+      :filter="v.value"
+      :filter-function="filterPbs"
+      head-variant="light">
+      <!-- Display name Type in header -->
       <template v-slot:head(type)>
         {{ v.text }}
       </template>
 
-      <!-- Display calculated sum of Value -->
+      <!-- TODO: Display calculated sum of Percent in header -->
+      <!-- <template v-slot:head(percent)>
+        {{ calcKatPercent() }}
+      </template> -->
+
+      <!-- Display  calculated sum of Value in header -->
       <template v-slot:head(value)>
-        {{ liquidSum }}
+        {{ calcKatSum(v.value) }}
       </template>
 
-      <!-- Show Type in Bold -->
+      <!-- Show Type in Bold in cells -->
       <template v-slot:cell(type)="data">
         <b>{{ data.value }}</b>
       </template>
 
-      <!-- Display delete button -->
+      <!-- Display delete button in cells -->
       <template v-slot:cell(delete)="data">
-        <b-button @click="deleteAktiva(data.value)">X</b-button>
+        <b-button @click="deleteAktiva(data.item)">X</b-button>
       </template>
 
       </b-table>
@@ -63,23 +40,31 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid';
+
 export default {
+  name: 'PBSTable',
+  props: {
+    formData: {
+      type: Object,
+    },
+  },
   data() {
     return {
-      form: {
-        aktiva_kat: 'liq',
-        type: '',
-        value: '',
-      },
-      aktiva_kats: [{ text: 'Liquides Vermögen / Bargeld', value: 'liq' }, { text: 'Immobilien', value: 'immo' }],
-      show: true,
+      // TODO: Exlude categories from here and fetch from App.vue
+      aktiva_kats: [
+        { text: 'Liquides Vermögen / Bargeld', value: 'liq' },
+        { text: 'Immobilien', value: 'immo' },
+      ],
       fields: [
         { key: 'type', label: 'Type' },
         {
           key: 'percent',
           label: '100%',
           formatter: (value, key, item) => {
-            const result = ((item.value / this.liquidSum) * 100).toFixed(2).concat('%');
+            // this.calcKatSum(item.kat) might be not cheap as it calculates sum on each row
+            // - todo better way, without formatter and with function
+            const result = ((item.value / this.calcKatSum(item.kat)) * 100).toFixed(2).concat('%');
             return result;
           },
         },
@@ -88,21 +73,25 @@ export default {
       ],
       pbsdata: [
         {
+          id: uuidv4(),
           kat: 'liq',
           type: 'Girokonten',
           value: '100000',
         },
         {
+          id: uuidv4(),
           kat: 'liq',
           type: 'Festfelder',
           value: '100000',
         },
         {
+          id: uuidv4(),
           kat: 'liq',
           type: 'Sparbücher',
           value: '100000',
         },
         {
+          id: uuidv4(),
           kat: 'immo',
           type: 'Eigenheime',
           value: '200000',
@@ -111,52 +100,47 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      // alert(JSON.stringify(this.form));
-      this.addAktiva();
-      this.clearForm();
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      // Reset our form values
-      this.form.aktiva_kat = 'liq';
-      this.form.type = '';
-      this.form.value = '';
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
-    },
-    addAktiva() {
-      const newEntry = {
-        aktiva_kat: this.form.aktiva_kat,
-        type: this.form.type,
-        value: this.form.value,
-      };
-      this.pbsdata.push(newEntry);
-    },
-    clearForm() {
-      this.form.aktiva_kat = 'liq';
-      this.form.type = '';
-      this.form.value = '';
-    },
-    deleteAktiva(index) {
-      console.log(index);
-      // alert(JSON.stringify(data));
+    deleteAktiva(item) {
+      const { id } = item;
+      const index = this.pbsdata.map((x) => x.id).indexOf(id);
       this.pbsdata.splice(index, 1);
     },
-  },
-  computed: {
-    liquidSum() {
-      let liquidSum = 0;
-      this.pbsdata.forEach((liq) => {
-        liquidSum += (parseFloat(liq.value));
+    filterPbs(value, filter) {
+      if (value.kat === filter) {
+        return true;
+      }
+      return false;
+    },
+    calcKatSum(kat) {
+      let katSum = 0;
+      const filteredData = this.pbsdata.filter((filter) => filter.kat === kat);
+      filteredData.forEach((k) => {
+        katSum += (parseFloat(k.value));
       });
-      return liquidSum;
+      return katSum;
+    },
+    // TODO: Calculations of percentage
+    calcKatPercent() {
+      const percentSum = 0;
+
+      return percentSum;
     },
   },
+  watch: {
+    formData() {
+      this.pbsdata.push(this.formData);
+    },
+  },
+  // computed: {
+  //   liquidSum() {
+  //     console.log('liquidSum');
+  //     let liquidSum = 0;
+  //     this.pbsdata.forEach((liq) => {
+  //       liquidSum += (parseFloat(liq.value));
+  //     });
+  //     return liquidSum;
+  //   },
+  // },
 };
 </script>
 
