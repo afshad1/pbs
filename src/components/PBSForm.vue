@@ -52,6 +52,7 @@ export default {
       types: [
         { text: 'Liquides Vermögen / Bargeld', value: 'liq', kat: 'aktiva' },
         { text: 'Immobilien', value: 'immo', kat: 'aktiva' },
+        { text: 'Verbindlichkeiten', value: 'verbind', kat: 'passiva' },
       ],
       show: true,
     };
