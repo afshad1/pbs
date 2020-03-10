@@ -15,9 +15,9 @@
         <b-form-input
           id="input-2"
           type="text"
-          v-model="form.type"
+          v-model="form.name"
           required
-          placeholder="Typ z.B. Girokonten"
+          placeholder="Name z.B. Girokonten"
         ></b-form-input>
       </b-form-group>
 
@@ -46,7 +46,7 @@ export default {
     return {
       form: {
         aktiva_kat: 'liq',
-        type: '',
+        name: '',
         value: '',
       },
       aktiva_kats: [
@@ -67,7 +67,7 @@ export default {
       evt.preventDefault();
       // Reset our form values
       this.form.aktiva_kat = 'liq';
-      this.form.type = '';
+      this.form.name = '';
       this.form.value = '';
       // Trick to reset/clear native browser form validation state
       this.show = false;
@@ -79,14 +79,14 @@ export default {
       const newEntry = {
         id: uuidv4(),
         kat: this.form.aktiva_kat,
-        type: this.form.type,
+        name: this.form.name,
         value: this.form.value,
       };
       return newEntry;
     },
     clearForm() {
       this.form.aktiva_kat = 'liq';
-      this.form.type = '';
+      this.form.name = '';
       this.form.value = '';
     },
   },

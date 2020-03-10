@@ -1,5 +1,8 @@
 <template>
   <div>
+    <b-container fluid class="example">
+      <b-row>
+        <b-col>
     <!-- ForEach item in select input create a new table -->
     <div v-for="v in aktiva_kats" :key="v.value">
       <b-table
@@ -11,8 +14,8 @@
       head-row-variant="info"
       >
 
-      <!-- Display name Type in header -->
-      <template v-slot:head(type)>
+      <!-- Display Type as Name in header -->
+      <template v-slot:head(name)>
         {{ v.text }}
       </template>
 
@@ -27,7 +30,7 @@
       </template>
 
       <!-- Show Type in Bold in cells -->
-      <template v-slot:cell(type)="data">
+      <template v-slot:cell(name)="data">
         <b>{{ data.value }}</b>
       </template>
 
@@ -42,6 +45,10 @@
 
       </b-table>
     </div>
+        </b-col>
+        <b-col>second table</b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -67,7 +74,7 @@ export default {
         { text: 'Immobilien', value: 'immo' },
       ],
       fields: [
-        { key: 'type', label: 'Type' },
+        { key: 'name', label: 'Name' },
         {
           key: 'percent',
           label: '100%',
@@ -92,25 +99,25 @@ export default {
         {
           id: uuidv4(),
           kat: 'liq',
-          type: 'Girokonten',
+          name: 'Girokonten1',
           value: '100000',
         },
         {
           id: uuidv4(),
           kat: 'liq',
-          type: 'Festfelder',
+          name: 'Festgelder1',
           value: '100000',
         },
         {
           id: uuidv4(),
           kat: 'liq',
-          type: 'Sparbücher',
+          name: 'Sparbücher1',
           value: '100000',
         },
         {
           id: uuidv4(),
           kat: 'immo',
-          type: 'Eigenheime',
+          name: 'Eigenheime1',
           value: '200000',
         },
       ],
