@@ -137,7 +137,7 @@ export default {
       // Add category sum to array to avoid recalculations
       const index = this.aktiva_kats.findIndex(({ value }) => value === kat);
       this.aktiva_kats[index].sum = katSum;
-      return katSum;
+      return this.formatCurrency(katSum);
     },
   },
   watch: {
