@@ -176,6 +176,29 @@ export default {
       }
     },
   },
+  computed: {
+    // TODO: Get unique values of types and pass to ForEach of b-table.
+    // Goal is that tables are not shown if there are no items with a type
+
+    // typesInPbsdata() {
+    //   // const uniqueValues = [...new Set(this.pbsdata.map((x) => x.type))];
+    //   // const uniqueValues = Array.from(new Set(this.pbsdata.map((item) => item.type)));
+    //   const unique = [];
+    //   const distinct = [];
+    //   for (let i = 0; i < this.pbsdata.length; i += 1) {
+    //     if (!unique[this.pbsdata[i].type]) {
+    //       const uniqueVal = { type: this.pbsdata[i].type, cat: this.pbsdata[i].cat };
+    //       // distinct.push(this.pbsdata[i].type);
+    //       // distinct.push(this.pbsdata[i].cat);
+    //       distinct.push(uniqueVal);
+
+    //       unique[this.pbsdata[i].type] = 1;
+    //     }
+    //   }
+    //   // console.log(distinct);
+    //   return distinct;
+    // },
+  },
 };
 </script>
 
