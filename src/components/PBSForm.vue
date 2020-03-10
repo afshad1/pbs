@@ -50,8 +50,8 @@ export default {
         value: '',
       },
       types: [
-        { text: 'Liquides Vermögen / Bargeld', value: 'liq' },
-        { text: 'Immobilien', value: 'immo' },
+        { text: 'Liquides Vermögen / Bargeld', value: 'liq', kat: 'aktiva' },
+        { text: 'Immobilien', value: 'immo', kat: 'aktiva' },
       ],
       show: true,
     };

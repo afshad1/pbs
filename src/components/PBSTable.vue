@@ -26,7 +26,7 @@
 
       <!-- Display  calculated sum of Value in header -->
       <template v-slot:head(value)>
-        {{ calcKatSum(type.value) }}
+        {{ calcTypeSum(type.value) }}
       </template>
 
       <!-- Show Type in Bold in cells -->
@@ -139,16 +139,16 @@ export default {
       }
       return false;
     },
-    calcKatSum(kat) {
-      let katSum = 0;
-      const filteredData = this.pbsdata.filter((filter) => filter.type === kat);
-      filteredData.forEach((k) => {
-        katSum += (parseFloat(k.value));
+    calcTypeSum(type) {
+      let typeSum = 0;
+      const filteredData = this.pbsdata.filter((filter) => filter.type === type);
+      filteredData.forEach((t) => {
+        typeSum += (parseFloat(t.value));
       });
       // Add category sum to array to avoid recalculations
-      const index = this.types.findIndex(({ value }) => value === kat);
-      this.types[index].sum = katSum;
-      return this.formatCurrency(katSum);
+      const index = this.types.findIndex(({ value }) => value === type);
+      this.types[index].sum = typeSum;
+      return this.formatCurrency(typeSum);
     },
   },
   watch: {
