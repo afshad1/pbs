@@ -4,6 +4,17 @@
       <b-row>
         <!-- For each category in cats -->
         <b-col v-for="k in cats" :key="k.cat">
+          <!-- <b-card no-body>
+            <template v-slot:header>
+      <h5 class="mb-0">Hello World</h5>
+    </template>
+            <div class="bg-success text-light">
+              {{ k.cat }}
+            </div>
+          </b-card> -->
+          <div class="px-1 bg-info text-light">
+            <b>{{ k.cat }}</b>
+          </div>
         <div v-for="type in types" :key="type.value">
           <b-table
           outlined fixed striped small
@@ -31,9 +42,9 @@
           </template>
 
           <!-- Show Type in Bold in cells -->
-          <template v-slot:cell(name)="data">
+          <!-- <template v-slot:cell(name)="data">
             <b>{{ data.value }}</b>
-          </template>
+          </template> -->
 
           <!-- Display delete button in cells -->
           <template v-slot:cell(delete)="data">

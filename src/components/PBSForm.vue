@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       form: {
-        types: 'liq',
+        types: { key: 'liq', cat: 'aktiva' },
         name: '',
         value: '',
       },
@@ -61,14 +61,14 @@ export default {
         {
           label: 'Aktiva',
           options: [
-            { value: 'liq', text: 'Liquides Vermögen' },
-            { value: 'immo', text: 'Immobilien' },
+            { value: { key: 'liq', cat: 'aktiva' }, text: 'Liquides Vermögen' },
+            { value: { key: 'immo', cat: 'aktiva' }, text: 'Immobilien' },
           ],
         },
         {
           label: 'Passiva',
           options: [
-            { value: 'verbind', text: 'Verbindlichkeiten' },
+            { value: { key: 'verbind', cat: 'passiva' }, text: 'Verbindlichkeiten' },
           ],
         },
       ],
@@ -98,9 +98,11 @@ export default {
       // this.clearForm();
     },
     createEntry() {
+      // console.log(this.form.types.key);
       const newEntry = {
         id: uuidv4(),
-        type: this.form.types,
+        cat: this.form.types.cat,
+        type: this.form.types.key,
         name: this.form.name,
         value: this.form.value,
       };
