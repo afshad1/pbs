@@ -100,7 +100,7 @@ export default {
             return result;
           },
         },
-        { key: 'delete', label: 'X' },
+        { key: 'delete', label: 'Löschen' },
       ],
       pbsdata: [
         {

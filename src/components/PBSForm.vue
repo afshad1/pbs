@@ -50,9 +50,19 @@ export default {
         value: '',
       },
       types: [
-        { text: 'Liquides Vermögen', value: 'liq', cat: 'aktiva' },
-        { text: 'Immobilien', value: 'immo', cat: 'aktiva' },
-        { text: 'Verbindlichkeiten', value: 'verbind', cat: 'passiva' },
+        {
+          label: 'Aktiva',
+          options: [
+            { value: 'liq', text: 'Liquides Vermögen' },
+            { value: 'immo', text: 'Immobilien' },
+          ],
+        },
+        {
+          label: 'Passiva',
+          options: [
+            { value: 'verbind', text: 'Verbindlichkeiten' },
+          ],
+        },
       ],
       show: true,
     };
@@ -67,7 +77,7 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.types = 'liq';
+      // this.form.types = '';
       this.form.name = '';
       this.form.value = '';
       // Trick to reset/clear native browser form validation state
@@ -86,7 +96,7 @@ export default {
       return newEntry;
     },
     clearForm() {
-      this.form.types = 'liq';
+      // this.form.types = '';
       this.form.name = '';
       this.form.value = '';
     },
