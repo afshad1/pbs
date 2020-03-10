@@ -34,12 +34,12 @@
         </b-input-group>
       </b-form-group>
 
-      <b-button-group>
       <b-button type="submit" variant="primary">Hinzufügen</b-button>
       <b-button type="reset" variant="secondary">Reset</b-button>
-      </b-button-group>
 
-      <b-button type="button" @click="onDelete" variant="danger">Alle Einträge löschen</b-button>
+      <b-button type="button" @click="onDelete" variant="danger">
+        Alle Einträge löschen
+      </b-button>
 
     </b-form>
     </b-card>

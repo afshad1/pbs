@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid class="example">
+    <b-container fluid>
       <b-row>
         <!-- For each category in cats -->
         <b-col v-for="k in cats" :key="k.cat">
@@ -37,11 +37,9 @@
 
           <!-- Display delete button in cells -->
           <template v-slot:cell(delete)="data">
-            <!-- <b-button size="sm" variant="danger" @click="deleteAktiva(data.item)"> -->
               <b-link @click="deleteAktiva(data.item)">
               <b-icon-trash-fill font-scale="1.5"></b-icon-trash-fill>
               </b-link>
-            <!-- </b-button> -->
           </template>
 
           </b-table>
@@ -167,11 +165,6 @@ export default {
     formData() {
       if (this.formData.cmd === 'delete') {
         // Remove All
-        const result = new Intl.NumberFormat('de-DE', {
-          style: 'currency',
-          currency: 'EUR',
-        }).formatToParts(100);
-        console.log(result);
         this.pbsdata = [];
       } else {
         // Add form data to array

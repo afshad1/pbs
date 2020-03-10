@@ -3,9 +3,9 @@
     <b-navbar type="dark" variant="info">
     <b-navbar-brand href="#">Private Bilanzerstellung</b-navbar-brand>
     </b-navbar>
-    <br>
+
     <PBSForm @inputData="updateFormData"/>
-    <!-- <br> -->
+
     <PBSTable :formData="formData"/>
   </div>
 </template>
