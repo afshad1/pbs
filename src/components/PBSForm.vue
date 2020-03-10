@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card bg-variant="light">
-     <b-form @reset="onReset" @submit="onSubmit" v-if="show">
+     <b-form @reset="onReset" @submit="onSubmit" @delete="onDelete" v-if="show">
       <b-form-group id="input-group-1" label-for="input-1">
         <b-form-select
           id="input-1"
@@ -31,7 +31,9 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Hinzufügen</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="reset" variant="secondary">Reset</b-button>
+      <b-button type="delete" variant="danger">Alle Einträge löschen</b-button>
+
 
     </b-form>
     </b-card>
@@ -77,7 +79,6 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      // this.form.types = '';
       this.form.name = '';
       this.form.value = '';
       // Trick to reset/clear native browser form validation state
@@ -85,6 +86,9 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    onDelete() {
+      return true;
     },
     createEntry() {
       const newEntry = {
@@ -96,7 +100,6 @@ export default {
       return newEntry;
     },
     clearForm() {
-      // this.form.types = '';
       this.form.name = '';
       this.form.value = '';
     },
