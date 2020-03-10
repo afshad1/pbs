@@ -5,8 +5,8 @@
       <b-form-group id="input-group-1" label-for="input-1">
         <b-form-select
           id="input-1"
-          v-model="form.aktiva_kat"
-          :options="aktiva_kats"
+          v-model="form.types"
+          :options="types"
           required
         ></b-form-select>
       </b-form-group>
@@ -45,11 +45,11 @@ export default {
   data() {
     return {
       form: {
-        aktiva_kat: 'liq',
+        types: 'liq',
         name: '',
         value: '',
       },
-      aktiva_kats: [
+      types: [
         { text: 'Liquides Vermögen / Bargeld', value: 'liq' },
         { text: 'Immobilien', value: 'immo' },
       ],
@@ -66,7 +66,7 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.aktiva_kat = 'liq';
+      this.form.types = 'liq';
       this.form.name = '';
       this.form.value = '';
       // Trick to reset/clear native browser form validation state
@@ -78,14 +78,14 @@ export default {
     createEntry() {
       const newEntry = {
         id: uuidv4(),
-        kat: this.form.aktiva_kat,
+        type: this.form.types,
         name: this.form.name,
         value: this.form.value,
       };
       return newEntry;
     },
     clearForm() {
-      this.form.aktiva_kat = 'liq';
+      this.form.types = 'liq';
       this.form.name = '';
       this.form.value = '';
     },

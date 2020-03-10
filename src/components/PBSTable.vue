@@ -4,19 +4,19 @@
       <b-row>
         <b-col>
     <!-- ForEach item in select input create a new table -->
-    <div v-for="v in aktiva_kats" :key="v.value">
+    <div v-for="type in types" :key="type.value">
       <b-table
       outlined fixed striped small
       :fields="fields"
       :items="pbsdata"
-      :filter="v.value"
+      :filter="type.value"
       :filter-function="filterPbs"
       head-row-variant="info"
       >
 
       <!-- Display Type as Name in header -->
       <template v-slot:head(name)>
-        {{ v.text }}
+        {{ type.text }}
       </template>
 
       <!-- TODO: Display calculated sum of Percent in header -->
@@ -26,7 +26,7 @@
 
       <!-- Display  calculated sum of Value in header -->
       <template v-slot:head(value)>
-        {{ calcKatSum(v.value) }}
+        {{ calcKatSum(type.value) }}
       </template>
 
       <!-- Show Type in Bold in cells -->
@@ -69,9 +69,9 @@ export default {
   data() {
     return {
       // TODO: Exlude categories from here and fetch from App.vue
-      aktiva_kats: [
-        { text: 'Liquides Vermögen / Bargeld', value: 'liq' },
-        { text: 'Immobilien', value: 'immo' },
+      types: [
+        { text: 'Liquides Vermögen / Bargeld', value: 'liq', kat: 'aktiva' },
+        { text: 'Immobilien', value: 'immo', kat: 'aktiva' },
       ],
       fields: [
         { key: 'name', label: 'Name' },
@@ -80,8 +80,8 @@ export default {
           label: '100%',
           formatter: (val, key, item) => {
             // Get pre-calculated sum value of category to avoid recalculation on each call
-            const index = this.aktiva_kats.findIndex(({ value }) => value === item.kat);
-            const result = ((item.value / this.aktiva_kats[index].sum) * 100).toFixed(2).concat('%');
+            const index = this.types.findIndex(({ value }) => value === item.type);
+            const result = ((item.value / this.types[index].sum) * 100).toFixed(2).concat('%');
             return result;
           },
         },
@@ -98,26 +98,30 @@ export default {
       pbsdata: [
         {
           id: uuidv4(),
-          kat: 'liq',
-          name: 'Girokonten1',
+          kat: 'aktiva',
+          type: 'liq',
+          name: 'Girokonten',
           value: '100000',
         },
         {
           id: uuidv4(),
-          kat: 'liq',
-          name: 'Festgelder1',
+          kat: 'aktiva',
+          type: 'liq',
+          name: 'Festgelder',
           value: '100000',
         },
         {
           id: uuidv4(),
-          kat: 'liq',
-          name: 'Sparbücher1',
+          kat: 'aktiva',
+          type: 'liq',
+          name: 'Sparbücher',
           value: '100000',
         },
         {
           id: uuidv4(),
-          kat: 'immo',
-          name: 'Eigenheime1',
+          kat: 'aktiva',
+          type: 'immo',
+          name: 'Eigenheime',
           value: '200000',
         },
       ],
@@ -130,20 +134,20 @@ export default {
       this.pbsdata.splice(index, 1);
     },
     filterPbs(value, filter) {
-      if (value.kat === filter) {
+      if (value.type === filter) {
         return true;
       }
       return false;
     },
     calcKatSum(kat) {
       let katSum = 0;
-      const filteredData = this.pbsdata.filter((filter) => filter.kat === kat);
+      const filteredData = this.pbsdata.filter((filter) => filter.type === kat);
       filteredData.forEach((k) => {
         katSum += (parseFloat(k.value));
       });
       // Add category sum to array to avoid recalculations
-      const index = this.aktiva_kats.findIndex(({ value }) => value === kat);
-      this.aktiva_kats[index].sum = katSum;
+      const index = this.types.findIndex(({ value }) => value === kat);
+      this.types[index].sum = katSum;
       return this.formatCurrency(katSum);
     },
   },
