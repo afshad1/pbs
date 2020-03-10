@@ -3,24 +3,17 @@
     <b-container fluid>
       <b-row>
         <!-- For each category in cats -->
-        <b-col v-for="k in cats" :key="k.cat">
-          <!-- <b-card no-body>
-            <template v-slot:header>
-      <h5 class="mb-0">Hello World</h5>
-    </template>
-            <div class="bg-success text-light">
-              {{ k.cat }}
-            </div>
-          </b-card> -->
+        <b-col v-for="k in cats" :key="k.value">
+          <!-- Header for Aktiva/Passiva -->
           <div class="px-1 bg-info text-light">
-            <b>{{ k.cat }}</b>
+            <b>{{ k.text }}</b>
           </div>
         <div v-for="type in types" :key="type.value">
           <b-table
-          outlined fixed striped small
+          outlined striped small
           :fields="fields"
           :items="pbsdata"
-          v-if="type.cat === k.cat"
+          v-if="type.cat === k.value"
           :filter="type.value"
           :filter-function="filterPbs"
           head-row-variant="info"
@@ -79,8 +72,8 @@ export default {
     return {
       // TODO: Exlude cats/types from here and fetch from App.vue
       cats: [
-        { cat: 'aktiva' },
-        { cat: 'passiva' },
+        { text: 'Aktiva', value: 'aktiva' },
+        { text: 'Passiva', value: 'passiva' },
       ],
       types: [
         { text: 'Liquides Vermögen', value: 'liq', cat: 'aktiva' },
