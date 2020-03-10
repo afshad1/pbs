@@ -4,9 +4,9 @@
     <b-navbar-brand href="#">Private Bilanzerstellung</b-navbar-brand>
     </b-navbar>
     <br>
-    <PBSForm @inputData="newFormData"/>
+    <PBSForm @inputData="updateFormData"/>
     <!-- <br> -->
-    <PBSTable :formData="newformData"/>
+    <PBSTable :formData="formData"/>
   </div>
 </template>
 
@@ -22,12 +22,12 @@ export default {
   },
   data() {
     return {
-      newformData: {},
+      formData: {},
     };
   },
   methods: {
-    newFormData(data) {
-      this.newformData = data;
+    updateFormData(data) {
+      this.formData = data;
     },
   },
 };

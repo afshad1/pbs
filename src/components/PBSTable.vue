@@ -168,16 +168,6 @@ export default {
       this.pbsdata.push(this.formData);
     },
   },
-  // computed: {
-  //   liquidSum() {
-  //     console.log('liquidSum');
-  //     let liquidSum = 0;
-  //     this.pbsdata.forEach((liq) => {
-  //       liquidSum += (parseFloat(liq.value));
-  //     });
-  //     return liquidSum;
-  //   },
-  // },
 };
 </script>
 
