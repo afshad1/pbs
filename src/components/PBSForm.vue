@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card bg-variant="light">
-     <b-form @reset="onReset" @submit="onSubmit" @delete="onDelete" v-if="show">
+     <b-form @reset="onReset" @submit="onSubmit" v-if="show">
       <b-form-group id="input-group-1" label-for="input-1">
         <b-form-select
           id="input-1"
@@ -22,18 +22,24 @@
       </b-form-group>
 
       <b-form-group id="input-group-3" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          type="number"
-          v-model="form.value"
-          placeholder="Wert"
-        ></b-form-input>
+        <b-input-group>
+            <b-input-group-text slot="prepend">
+              {{ this.getCurrencySymbol1() }}</b-input-group-text>
+          <b-form-input
+            id="input-3"
+            type="number"
+            v-model="form.value"
+            placeholder="Wert"
+          ></b-form-input>
+        </b-input-group>
       </b-form-group>
 
+      <b-button-group>
       <b-button type="submit" variant="primary">Hinzufügen</b-button>
       <b-button type="reset" variant="secondary">Reset</b-button>
-      <b-button type="delete" variant="danger">Alle Einträge löschen</b-button>
+      </b-button-group>
 
+      <b-button type="button" @click="onDelete" variant="danger">Alle Einträge löschen</b-button>
 
     </b-form>
     </b-card>
@@ -88,7 +94,8 @@ export default {
       });
     },
     onDelete() {
-      return true;
+      this.$emit('inputData', { cmd: 'delete' });
+      // this.clearForm();
     },
     createEntry() {
       const newEntry = {
@@ -102,6 +109,9 @@ export default {
     clearForm() {
       this.form.name = '';
       this.form.value = '';
+    },
+    getCurrencySymbol1() {
+      return this.getCurrencySymbol();
     },
   },
 };

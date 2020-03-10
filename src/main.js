@@ -24,6 +24,14 @@ Vue.mixin({
       }).format(num);
       return result;
     },
+    // TODO: Proper internationlization
+    getCurrencySymbol() {
+      const result = new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: 'EUR',
+      }).formatToParts(0).find((x) => x.type === 'currency').value;
+      return result;
+    },
   },
 });
 

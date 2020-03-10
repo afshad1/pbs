@@ -165,7 +165,18 @@ export default {
   },
   watch: {
     formData() {
-      this.pbsdata.push(this.formData);
+      if (this.formData.cmd === 'delete') {
+        // Remove All
+        const result = new Intl.NumberFormat('de-DE', {
+          style: 'currency',
+          currency: 'EUR',
+        }).formatToParts(100);
+        console.log(result);
+        this.pbsdata = [];
+      } else {
+        // Add form data to array
+        this.pbsdata.push(this.formData);
+      }
     },
   },
 };
