@@ -18,13 +18,14 @@
           v-model="form.name"
           required
           placeholder="Name z.B. Girokonten"
+          label-cols="2"
         ></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-3" label-for="input-3">
         <b-input-group>
             <b-input-group-text slot="prepend">
-              {{ this.getCurrencySymbol1() }}</b-input-group-text>
+              {{ this.getCurrencySymbol() }}</b-input-group-text>
           <b-form-input
             id="input-3"
             type="number"
@@ -37,8 +38,12 @@
       <b-button type="submit" variant="primary">Hinzufügen</b-button>
       <b-button type="reset" variant="secondary">Reset</b-button>
 
-      <b-button type="button" @click="onDelete" variant="danger">
+      <b-button class="float-right" type="button" @click="onDelete" variant="danger">
         Alle Einträge löschen
+      </b-button>
+
+      <b-button class="float-right" type="button" @click="generateSample" variant="info">
+        Beispiel-Einträge erstellen
       </b-button>
 
     </b-form>
@@ -94,26 +99,63 @@ export default {
       });
     },
     onDelete() {
-      this.$emit('inputData', { cmd: 'delete' });
-      // this.clearForm();
+      this.$emit('inputData', [{ cmd: 'delete' }]);
     },
     createEntry() {
-      // console.log(this.form.types.key);
-      const newEntry = {
-        id: uuidv4(),
-        cat: this.form.types.cat,
-        type: this.form.types.key,
-        name: this.form.name,
-        value: this.form.value,
-      };
+      const newEntry = [
+        {
+          id: uuidv4(),
+          cat: this.form.types.cat,
+          type: this.form.types.key,
+          name: this.form.name,
+          value: this.form.value,
+        },
+      ];
       return newEntry;
     },
     clearForm() {
       this.form.name = '';
       this.form.value = '';
     },
-    getCurrencySymbol1() {
-      return this.getCurrencySymbol();
+    generateSample() {
+      const sample = [
+        {
+          id: uuidv4(),
+          cat: 'aktiva',
+          type: 'liq',
+          name: 'Girokonten',
+          value: '100000',
+        },
+        {
+          id: uuidv4(),
+          cat: 'aktiva',
+          type: 'liq',
+          name: 'Festgelder',
+          value: '100000',
+        },
+        {
+          id: uuidv4(),
+          cat: 'aktiva',
+          type: 'liq',
+          name: 'Sparbücher',
+          value: '100000',
+        },
+        {
+          id: uuidv4(),
+          cat: 'aktiva',
+          type: 'immo',
+          name: 'Eigenheime',
+          value: '200000',
+        },
+        {
+          id: uuidv4(),
+          cat: 'passiva',
+          type: 'verbind',
+          name: 'Eigengenutzte Immobilien',
+          value: '150000',
+        },
+      ];
+      this.$emit('inputData', sample);
     },
   },
 };
