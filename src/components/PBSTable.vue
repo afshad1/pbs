@@ -35,7 +35,7 @@
 
             <!-- Display calculated sum of Value in header -->
             <template v-slot:head(value)>
-              {{ calcTypeSum(type.value) }}
+              {{ calcTypeSum( type.value ) }}
             </template>
 
             <!-- TODO: Display input on row selected -->
@@ -56,6 +56,14 @@
             </template>
 
             </b-table>
+          </div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col v-for="k in cats" :key="k.value">
+
+          <div class="px-1 bg-info text-light">
+            <b>Summe {{ k.text }}</b><span class="float-right">{{ calcCatSum(k.value) }}</span>
           </div>
         </b-col>
       </b-row>
@@ -137,6 +145,20 @@ export default {
       const index = this.types.findIndex(({ value }) => value === type);
       this.types[index].sum = typeSum;
       return this.formatCurrency(typeSum);
+    },
+    calcCatSum(cat) {
+      let catSum = 0;
+      const filteredData = this.pbsdata.filter((filter) => filter.cat === cat);
+      filteredData.forEach((t) => {
+        catSum += (parseFloat(t.value));
+      });
+      // Add category sum to array to avoid recalculations
+      const index = this.cats.findIndex(({ value }) => value === cat);
+      this.cats[index].sum = catSum;
+      return this.formatCurrency(catSum);
+    },
+    formatMe(val) {
+      return this.formatCurrency(val);
     },
     // On select row event
     // onRowSelected(items) {
