@@ -22,7 +22,7 @@
             :filter="type.value"
             :filter-function="filterPbs"
             head-row-variant="info"
-
+            class=""
             >
 
             <!-- Display Type as Name in header -->
@@ -68,8 +68,6 @@
             <div class="d-flex"><b>Summe {{ k.text }}</b></div>
             <div class="d-flex inline" >{{ calcCatSum(k.value) }}</div>
             <div class="d-flex inline" ></div>
-            <!-- <div class="d-flex inline" ></div> -->
-
           </div>
         </b-col>
       </b-row>
@@ -161,9 +159,6 @@ export default {
       const index = this.cats.findIndex(({ value }) => value === cat);
       this.cats[index].sum = catSum;
       return this.formatCurrency(catSum);
-    },
-    formatMe(val) {
-      return this.formatCurrency(val);
     },
     // On select row event
     // onRowSelected(items) {

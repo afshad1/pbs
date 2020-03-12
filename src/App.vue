@@ -2,11 +2,14 @@
   <div id="app">
     <b-navbar type="dark" variant="info">
     <b-navbar-brand href="#">Private Bilanzerstellung</b-navbar-brand>
+    <b-form-checkbox v-model="switch1" switch class="mr-n2">
+        <span class="sr-only">Switch for following text input</span>
+      </b-form-checkbox>
     </b-navbar>
 
-    <PBSForm @inputData="updateFormData"/>
+    <PBSForm @inputData="updateFormData" v-show="!switch1"/>
 
-    <PBSTable :formData="formData"/>
+    <PBSTable :formData="formData" v-show="!switch1"/>
   </div>
 </template>
 
@@ -22,6 +25,7 @@ export default {
   },
   data() {
     return {
+      switch1: true,
       formData: [],
     };
   },
