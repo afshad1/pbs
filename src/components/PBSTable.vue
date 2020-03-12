@@ -14,7 +14,8 @@
             select-mode="single"
             @row-selected="onRowSelected" -->
             <b-table
-            outlined small fixed responsive
+            outlined small fixed
+            stacked="sm"
             :fields="fields"
             :items="pbsdata"
             v-if="type.cat === k.value"
@@ -26,7 +27,7 @@
 
             <!-- Display Type as Name in header -->
             <template v-slot:head(name)>
-              {{ type.text }}
+              <div class="">{{ type.text }}</div>
             </template>
 
             <!-- TODO: Display calculated sum of Percent in header -->
@@ -65,7 +66,10 @@
 
           <div class="px-1 bg-info text-light d-flex flex-row justify-content-between">
             <div class="d-flex"><b>Summe {{ k.text }}</b></div>
-            <div class="d-flex" >{{ calcCatSum(k.value) }}</div>
+            <div class="d-flex inline" >{{ calcCatSum(k.value) }}</div>
+            <div class="d-flex inline" ></div>
+            <!-- <div class="d-flex inline" ></div> -->
+
           </div>
         </b-col>
       </b-row>
