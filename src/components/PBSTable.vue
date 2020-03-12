@@ -14,13 +14,14 @@
             select-mode="single"
             @row-selected="onRowSelected" -->
             <b-table
-            outlined striped small
+            outlined small fixed responsive
             :fields="fields"
             :items="pbsdata"
             v-if="type.cat === k.value"
             :filter="type.value"
             :filter-function="filterPbs"
             head-row-variant="info"
+
             >
 
             <!-- Display Type as Name in header -->
@@ -62,8 +63,9 @@
       <b-row>
         <b-col v-for="k in cats" :key="k.value">
 
-          <div class="px-1 bg-info text-light">
-            <b>Summe {{ k.text }}</b><span class="float-right">{{ calcCatSum(k.value) }}</span>
+          <div class="px-1 bg-info text-light d-flex flex-row justify-content-between">
+            <div class="d-flex"><b>Summe {{ k.text }}</b></div>
+            <div class="d-flex" >{{ calcCatSum(k.value) }}</div>
           </div>
         </b-col>
       </b-row>
@@ -72,7 +74,6 @@
 </template>
 
 <script>
-// import { v4 as uuidv4 } from 'uuid';
 import { BIconTrashFill } from 'bootstrap-vue';
 
 export default {
