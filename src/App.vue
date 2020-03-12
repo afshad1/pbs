@@ -9,7 +9,7 @@
 
     <PBSForm @inputData="updateFormData" v-show="!switch1"/>
 
-    <PBSTable :formData="formData" v-show="!switch1"/>
+    <PBSTable :pbsData="pbsData" :formData="formData" v-show="!switch1"/>
   </div>
 </template>
 
@@ -25,14 +25,22 @@ export default {
   },
   data() {
     return {
-      switch1: true,
+      STORAGE_KEY: 'pbsStorage',
+      switch1: false,
       formData: [],
+      pbsData: [],
     };
   },
   methods: {
     updateFormData(data) {
       this.formData = data;
     },
+  },
+  mounted() {
+    // Load from localStorage in browser
+    if (localStorage.getItem(this.STORAGE_KEY)) {
+      this.pbsData = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || []);
+    }
   },
 };
 </script>

@@ -87,10 +87,14 @@ export default {
     formData: {
       type: Array,
     },
+    pbsData: {
+      type: Array,
+    },
   },
   data() {
     return {
       STORAGE_KEY: 'pbsStorage', // localStorage key
+      pbsdata: [],
       // TODO: Exlude cats/types from here and fetch from App.vue
       cats: [
         { text: 'Aktiva', value: 'aktiva' },
@@ -123,7 +127,6 @@ export default {
         },
         { key: 'delete', label: 'Löschen' },
       ],
-      pbsdata: [],
     };
   },
   methods: {
@@ -166,6 +169,10 @@ export default {
     // },
   },
   watch: {
+    pbsData() {
+      // watch for changes in pbsData and push them to local array
+      this.pbsData.forEach((p) => this.pbsdata.push(p));
+    },
     formData() {
       if (this.formData[0].cmd === 'delete') {
         // Remove All
@@ -182,12 +189,6 @@ export default {
       },
       deep: true,
     },
-  },
-  mounted() {
-    // Load from localStorage in browser
-    if (localStorage.getItem(this.STORAGE_KEY)) {
-      this.pbsdata = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || []);
-    }
   },
   computed: {
     // TODO: Get unique values of types and pass to ForEach of b-table.
