@@ -53,6 +53,7 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
+import { mutations } from '@/pbsStore';
 
 export default {
   data() {
@@ -84,7 +85,7 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       const newEntry = this.createEntry();
-      this.$emit('inputData', newEntry);
+      mutations.addPbsData(newEntry);
       this.clearForm();
     },
     onReset(evt) {
@@ -99,7 +100,7 @@ export default {
       });
     },
     onDelete() {
-      this.$emit('inputData', [{ cmd: 'delete' }]);
+      mutations.deletePbsAll();
     },
     createEntry() {
       const newEntry = [
@@ -155,8 +156,9 @@ export default {
           value: '150000',
         },
       ];
-      this.$emit('inputData', sample);
+      mutations.addPbsData(sample);
     },
+    setPbsData: mutations.setPbsData,
   },
 };
 </script>

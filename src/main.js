@@ -10,9 +10,18 @@ Vue.use(Router);
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
-// Vue.use(uuidv4);
 
 Vue.config.productionTip = false;
+
+// export const pbsStore = Vue.observable({
+//   count: 0,
+// });
+
+// export const mutations = {
+//   setCount(count) {
+//     pbsStore.count = count;
+//   },
+// };
 
 Vue.mixin({
   methods: {

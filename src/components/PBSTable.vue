@@ -17,7 +17,7 @@
             outlined small fixed
             stacked="sm"
             :fields="fields"
-            :items="pbsdata"
+            :items="pbsData1"
             v-if="type.cat === k.value"
             :filter="type.value"
             :filter-function="filterPbs"
@@ -77,6 +77,7 @@
 
 <script>
 import { BIconTrashFill } from 'bootstrap-vue';
+import { pbsStore, mutations } from '@/pbsStore';
 
 export default {
   components: {
@@ -84,12 +85,12 @@ export default {
   },
   name: 'PBSTable',
   props: {
-    formData: {
-      type: Array,
-    },
-    pbsData: {
-      type: Array,
-    },
+    // formData: {
+    //   type: Array,
+    // },
+    // pbsData: {
+    //   type: Array,
+    // },
   },
   data() {
     return {
@@ -131,9 +132,7 @@ export default {
   },
   methods: {
     deleteAktiva(item) {
-      const { id } = item;
-      const index = this.pbsdata.map((x) => x.id).indexOf(id);
-      this.pbsdata.splice(index, 1);
+      mutations.deletePbsData(item);
     },
     filterPbs(value, filter) {
       if (value.type === filter) {
@@ -143,7 +142,7 @@ export default {
     },
     calcTypeSum(type) {
       let typeSum = 0;
-      const filteredData = this.pbsdata.filter((filter) => filter.type === type);
+      const filteredData = pbsStore.data.filter((filter) => filter.type === type);
       filteredData.forEach((t) => {
         typeSum += (parseFloat(t.value));
       });
@@ -154,7 +153,7 @@ export default {
     },
     calcCatSum(cat) {
       let catSum = 0;
-      const filteredData = this.pbsdata.filter((filter) => filter.cat === cat);
+      const filteredData = pbsStore.data.filter((filter) => filter.cat === cat);
       filteredData.forEach((t) => {
         catSum += (parseFloat(t.value));
       });
@@ -169,26 +168,13 @@ export default {
     // },
   },
   watch: {
-    pbsData() {
-      // watch for changes in pbsData and push them to local array
-      this.pbsData.forEach((p) => this.pbsdata.push(p));
-    },
-    formData() {
-      if (this.formData[0].cmd === 'delete') {
-        // Remove All
-        this.pbsdata = [];
-      } else {
-        // Add each object in array
-        this.formData.forEach((f) => this.pbsdata.push(f));
-      }
-    },
-    pbsdata: {
-      // Save in localStorage on changes in pbsdata
-      handler(pbsdata) {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(pbsdata));
-      },
-      deep: true,
-    },
+    // pbsdata: {
+    //   // Save in localStorage on changes in pbsdata
+    //   handler(pbsdata) {
+    //     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(pbsdata));
+    //   },
+    //   deep: true,
+    // },
   },
   computed: {
     // TODO: Get unique values of types and pass to ForEach of b-table.
@@ -212,6 +198,9 @@ export default {
     //   // console.log(distinct);
     //   return distinct;
     // },
+    pbsData1() {
+      return pbsStore.data;
+    },
   },
 };
 </script>
