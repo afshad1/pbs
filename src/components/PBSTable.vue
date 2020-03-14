@@ -76,13 +76,9 @@
 </template>
 
 <script>
-import { BIconTrashFill } from 'bootstrap-vue';
 import { pbsStore, mutations } from '@/pbsStore';
 
 export default {
-  components: {
-    BIconTrashFill,
-  },
   name: 'PBSTable',
   data() {
     return {

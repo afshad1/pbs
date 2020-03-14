@@ -47,6 +47,15 @@ export const pbsStore = Vue.observable({
     }
     return this.data;
   },
+  getTypeText(type) {
+    const objectLiteral = {
+      liq: 'Liquides Vermögen',
+      immo: 'Immobilien',
+      verbind: 'Verbindlichkeiten',
+    };
+    // const res = allTypes.type;
+    return objectLiteral[type];
+  },
 });
 
 export const mutations = {

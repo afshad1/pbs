@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       STORAGE_KEY: 'pbsStorage',
-      cardView: false,
+      cardView: true,
     };
   },
   methods: {
