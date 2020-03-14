@@ -20,7 +20,7 @@
     class="mb-2"
   >
     <b-card-text>
-      <!-- {{ this.pbsdata[1].type }} -->{{ count }}
+      <!-- {{ this.pbsdata[1].type }} -->
     </b-card-text>
 
     <b-button href="#" variant="primary">Go somewhere</b-button>

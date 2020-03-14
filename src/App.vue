@@ -16,12 +16,14 @@
 </template>
 
 <script>
+// import { pbsStore } from '@/pbsStore';
 import PBSForm from './components/PBSForm.vue';
 import PBSTable from './components/PBSTable.vue';
 import PBSCards from './components/PBSCards.vue';
 
 export default {
   name: 'App',
+  pbsData: [],
   components: {
     PBSForm,
     PBSTable,
@@ -35,12 +37,6 @@ export default {
   },
   methods: {
 
-  },
-  mounted() {
-    // Load from localStorage in browser
-    // if (localStorage.getItem(this.STORAGE_KEY)) {
-    //   this.pbsData = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || []);
-    // }
   },
 };
 </script>

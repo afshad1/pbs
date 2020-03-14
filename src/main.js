@@ -13,16 +13,6 @@ Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
-// export const pbsStore = Vue.observable({
-//   count: 0,
-// });
-
-// export const mutations = {
-//   setCount(count) {
-//     pbsStore.count = count;
-//   },
-// };
-
 Vue.mixin({
   methods: {
     capitalizeFirstLetter: (str) => str.charAt(0).toUpperCase() + str.slice(1),

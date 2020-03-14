@@ -17,7 +17,7 @@
             outlined small fixed
             stacked="sm"
             :fields="fields"
-            :items="pbsData1"
+            :items="pbsDataLocalStorage"
             v-if="type.cat === k.value"
             :filter="type.value"
             :filter-function="filterPbs"
@@ -84,18 +84,9 @@ export default {
     BIconTrashFill,
   },
   name: 'PBSTable',
-  props: {
-    // formData: {
-    //   type: Array,
-    // },
-    // pbsData: {
-    //   type: Array,
-    // },
-  },
   data() {
     return {
       STORAGE_KEY: 'pbsStorage', // localStorage key
-      pbsdata: [],
       // TODO: Exlude cats/types from here and fetch from App.vue
       cats: [
         { text: 'Aktiva', value: 'aktiva' },
@@ -167,15 +158,6 @@ export default {
     //   console.log(items);
     // },
   },
-  watch: {
-    // pbsdata: {
-    //   // Save in localStorage on changes in pbsdata
-    //   handler(pbsdata) {
-    //     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(pbsdata));
-    //   },
-    //   deep: true,
-    // },
-  },
   computed: {
     // TODO: Get unique values of types and pass to ForEach of b-table.
     // Goal is that tables are not shown if there are no items with a type
@@ -198,8 +180,8 @@ export default {
     //   // console.log(distinct);
     //   return distinct;
     // },
-    pbsData1() {
-      return pbsStore.data;
+    pbsDataLocalStorage() {
+      return pbsStore.dataLocalStorage();
     },
   },
 };

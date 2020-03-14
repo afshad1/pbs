@@ -103,15 +103,13 @@ export default {
       mutations.deletePbsAll();
     },
     createEntry() {
-      const newEntry = [
-        {
-          id: uuidv4(),
-          cat: this.form.types.cat,
-          type: this.form.types.key,
-          name: this.form.name,
-          value: this.form.value,
-        },
-      ];
+      const newEntry = [{
+        id: uuidv4(),
+        cat: this.form.types.cat,
+        type: this.form.types.key,
+        name: this.form.name,
+        value: this.form.value,
+      }];
       return newEntry;
     },
     clearForm() {
