@@ -35,7 +35,6 @@ export default {
   name: 'PBSCards',
   data() {
     return {
-      // pbsdata: pbsStore.dataLocalStorage(),
     };
   },
   methods: {
@@ -53,17 +52,8 @@ export default {
       };
       return objectLiteral[val];
     },
-    // bla() {
-    //   return pbsStore.dataLocalStorage();
-    // },
   },
   computed: {
-    // pbsDataLocalStorage() {
-    //   if (this.pbsdata !== pbsStore.dataLocalStorage()) {
-    //     return pbsStore.dataLocalStorage();
-    //   }
-    //   return this.pbsdata;
-    // },
     pbsData() {
       return getters.pbsData();
     },
