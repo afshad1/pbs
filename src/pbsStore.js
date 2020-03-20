@@ -3,6 +3,15 @@ import Vue from 'vue';
 
 export const pbsStore = Vue.observable({
   STORAGE_KEY: 'pbsStorage',
+  cats: [
+    { text: 'Aktiva', value: 'aktiva' },
+    { text: 'Passiva', value: 'passiva' },
+  ],
+  types: [
+    { text: 'Liquides Vermögen', value: 'liq', cat: 'aktiva' },
+    { text: 'Immobilien', value: 'immo', cat: 'aktiva' },
+    { text: 'Verbindlichkeiten', value: 'verbind', cat: 'passiva' },
+  ],
   data: [
     // {
     //   id: uuidv4(),
@@ -44,6 +53,8 @@ export const pbsStore = Vue.observable({
 
 export const getters = {
   pbsData: () => pbsStore.data,
+  cats: () => pbsStore.cats,
+  types: () => pbsStore.types,
   getTypeText(type) {
     const objectLiteral = {
       liq: 'Liquides Vermögen',

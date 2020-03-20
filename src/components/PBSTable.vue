@@ -71,9 +71,9 @@
           </div>
         </b-col>
       </b-row>
-      <b-button class="float-left" type="button" @click="debugInfo" variant="info">
+      <!-- <b-button class="float-left" type="button" @click="debugInfo" variant="info">
         Debug
-      </b-button>
+      </b-button> -->
     </b-container>
   </div>
 </template>
@@ -89,17 +89,6 @@ export default {
   name: 'PBSTable',
   data() {
     return {
-      STORAGE_KEY: 'pbsStorage', // localStorage key
-      // TODO: Exlude cats/types from here and fetch from App.vue
-      cats: [
-        { text: 'Aktiva', value: 'aktiva' },
-        { text: 'Passiva', value: 'passiva' },
-      ],
-      types: [
-        { text: 'Liquides Vermögen', value: 'liq', cat: 'aktiva' },
-        { text: 'Immobilien', value: 'immo', cat: 'aktiva' },
-        { text: 'Verbindlichkeiten', value: 'verbind', cat: 'passiva' },
-      ],
       fields: [
         { key: 'name', label: 'Name' },
         {
@@ -189,15 +178,9 @@ export default {
     //   // console.log(distinct);
     //   return distinct;
     // },
-    // pbsDataLocalStorage() {
-    //   const baba = pbsStore.dataLocalStorage();
-    //   return baba;
-    // },
+
     //  setting computed variable from getter in pbsStore
-    pbsData() {
-      return getters.pbsData();
-    },
-    ...getters, // including all getters e.g. pbsData()
+    ...getters, // including all getters from pbsStore e.g. pbsData()
   },
   created() {
     // fetching data from pbsStore at creation
