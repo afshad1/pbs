@@ -40,13 +40,10 @@ export const pbsStore = Vue.observable({
     //   value: '150000',
     // },
   ],
-  // Get data from localStorage
-  dataLocalStorage() {
-    // if (localStorage.getItem(pbsStore.STORAGE_KEY)) {
-    //   this.data = JSON.parse(localStorage.getItem(pbsStore.STORAGE_KEY) || []);
-    // }
-    return this.data;
-  },
+});
+
+export const getters = {
+  pbsData: () => pbsStore.data,
   getTypeText(type) {
     const objectLiteral = {
       liq: 'Liquides Vermögen',
@@ -56,10 +53,6 @@ export const pbsStore = Vue.observable({
     // const res = allTypes.type;
     return objectLiteral[type];
   },
-});
-
-export const getters = {
-  pbsData: () => pbsStore.data,
 };
 
 export const mutations = {

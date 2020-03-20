@@ -82,7 +82,6 @@
 import {
   getters,
   actions,
-  pbsStore,
   mutations,
 } from '@/pbsStore';
 
@@ -127,8 +126,8 @@ export default {
   },
   methods: {
     debugInfo() {
-      console.log(this.pbsDataLocalStorage);
-      console.log(getters.pbsData());
+      // console.log(this.pbsDataLocalStorage);
+      console.log(this.pbsData[0].value);
     },
     deleteAktiva(item) {
       mutations.deletePbsData(item);
@@ -141,7 +140,7 @@ export default {
     },
     calcTypeSum(type) {
       let typeSum = 0;
-      const filteredData = pbsStore.data.filter((filter) => filter.type === type);
+      const filteredData = this.pbsData.filter((filter) => filter.type === type);
       filteredData.forEach((t) => {
         typeSum += (parseFloat(t.value));
       });
@@ -152,7 +151,7 @@ export default {
     },
     calcCatSum(cat) {
       let catSum = 0;
-      const filteredData = pbsStore.data.filter((filter) => filter.cat === cat);
+      const filteredData = this.pbsData.filter((filter) => filter.cat === cat);
       filteredData.forEach((t) => {
         catSum += (parseFloat(t.value));
       });
@@ -190,19 +189,19 @@ export default {
     //   // console.log(distinct);
     //   return distinct;
     // },
-    pbsDataLocalStorage() {
-      const baba = pbsStore.dataLocalStorage();
-      return baba;
-    },
+    // pbsDataLocalStorage() {
+    //   const baba = pbsStore.dataLocalStorage();
+    //   return baba;
+    // },
     //  setting computed variable from getter in pbsStore
     pbsData() {
       return getters.pbsData();
     },
-    ...getters, // pbsData()
+    ...getters, // including all getters e.g. pbsData()
   },
   created() {
     // fetching data from pbsStore at creation
-    this.fetchDataFromLocalStorage();
+    actions.fetchDataFromLocalStorage();
   },
 };
 </script>

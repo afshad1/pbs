@@ -1,10 +1,10 @@
 <template>
     <div>
   <b-card-group deck>
-    <template v-for="p in pbsdata">
+    <template v-for="p in pbsData">
   <b-card
     :key="p.id"
-    :header="getTypeText(p.type)"
+    header="getTypeText(p.type)"
     :header-bg-variant="getCardDesign(p.type)"
     header-text-variant="white"
     :title="p.name"
@@ -26,22 +26,25 @@
 </template>
 
 <script>
-import { pbsStore } from '@/pbsStore';
+import {
+  getters,
+  actions,
+} from '@/pbsStore';
 
 export default {
   name: 'PBSCards',
   data() {
     return {
-      pbsdata: pbsStore.dataLocalStorage(),
+      // pbsdata: pbsStore.dataLocalStorage(),
     };
   },
   methods: {
     testMethod() {
       // console.log(this.pbsdata);
     },
-    getTypeText(type) {
-      return pbsStore.getTypeText(type);
-    },
+    // getTypeText(type) {
+    //   return getters.getTypeText(type);
+    // },
     getCardDesign(val) {
       const objectLiteral = {
         liq: 'info',
@@ -50,9 +53,9 @@ export default {
       };
       return objectLiteral[val];
     },
-    bla() {
-      return pbsStore.dataLocalStorage();
-    },
+    // bla() {
+    //   return pbsStore.dataLocalStorage();
+    // },
   },
   computed: {
     // pbsDataLocalStorage() {
@@ -61,6 +64,14 @@ export default {
     //   }
     //   return this.pbsdata;
     // },
+    pbsData() {
+      return getters.pbsData();
+    },
+    ...getters,
+  },
+  created() {
+    // fetching data from pbsStore at creation
+    actions.fetchDataFromLocalStorage();
   },
 };
 </script>
