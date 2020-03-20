@@ -50,11 +50,17 @@ export default {
       };
       return objectLiteral[val];
     },
-  },
-  computed: {
-    pbsDataLocalStorage() {
+    bla() {
       return pbsStore.dataLocalStorage();
     },
+  },
+  computed: {
+    // pbsDataLocalStorage() {
+    //   if (this.pbsdata !== pbsStore.dataLocalStorage()) {
+    //     return pbsStore.dataLocalStorage();
+    //   }
+    //   return this.pbsdata;
+    // },
   },
 };
 </script>

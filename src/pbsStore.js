@@ -42,9 +42,9 @@ export const pbsStore = Vue.observable({
   ],
   // Get data from localStorage
   dataLocalStorage() {
-    if (localStorage.getItem(pbsStore.STORAGE_KEY)) {
-      this.data = JSON.parse(localStorage.getItem(pbsStore.STORAGE_KEY) || []);
-    }
+    // if (localStorage.getItem(pbsStore.STORAGE_KEY)) {
+    //   this.data = JSON.parse(localStorage.getItem(pbsStore.STORAGE_KEY) || []);
+    // }
     return this.data;
   },
   getTypeText(type) {
@@ -58,7 +58,17 @@ export const pbsStore = Vue.observable({
   },
 });
 
+export const getters = {
+  pbsData: () => pbsStore.data,
+};
+
 export const mutations = {
+  // set data to single point of truth and localStorage
+  setData(data) {
+    pbsStore.data = data;
+    localStorage.setItem(pbsStore.STORAGE_KEY, JSON.stringify(data));
+  },
+
   // set data to localStorage
   setPbsData(data) {
     localStorage.setItem(pbsStore.STORAGE_KEY, JSON.stringify(data));
@@ -73,11 +83,22 @@ export const mutations = {
     const { id } = item;
     const index = pbsStore.data.map((x) => x.id).indexOf(id);
     pbsStore.data.splice(index, 1);
-    this.setPbsData(pbsStore.data);
+    this.setData(pbsStore.data);
+    // this.setPbsData(pbsStore.data);
   },
   deletePbsAll() {
     // delete all pbs data
     pbsStore.data.splice(0, pbsStore.data.length);
     this.setPbsData(pbsStore.data);
+  },
+};
+
+export const actions = {
+  fetchDataFromLocalStorage() {
+    let res = [];
+    if (localStorage.getItem(pbsStore.STORAGE_KEY)) {
+      res = JSON.parse(localStorage.getItem(pbsStore.STORAGE_KEY) || []);
+    }
+    return mutations.setData(res);
   },
 };

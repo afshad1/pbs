@@ -17,7 +17,7 @@
             outlined small fixed
             stacked="sm"
             :fields="fields"
-            :items="pbsDataLocalStorage"
+            :items="pbsData"
             v-if="type.cat === k.value"
             :filter="type.value"
             :filter-function="filterPbs"
@@ -71,12 +71,20 @@
           </div>
         </b-col>
       </b-row>
+      <b-button class="float-left" type="button" @click="debugInfo" variant="info">
+        Debug
+      </b-button>
     </b-container>
   </div>
 </template>
 
 <script>
-import { pbsStore, mutations } from '@/pbsStore';
+import {
+  getters,
+  actions,
+  pbsStore,
+  mutations,
+} from '@/pbsStore';
 
 export default {
   name: 'PBSTable',
@@ -118,6 +126,10 @@ export default {
     };
   },
   methods: {
+    debugInfo() {
+      console.log(this.pbsDataLocalStorage);
+      console.log(getters.pbsData());
+    },
     deleteAktiva(item) {
       mutations.deletePbsData(item);
     },
@@ -149,6 +161,8 @@ export default {
       this.cats[index].sum = catSum;
       return this.formatCurrency(catSum);
     },
+    ...mutations,
+    ...actions,
     // On select row event
     // onRowSelected(items) {
     //   console.log(items);
@@ -177,8 +191,18 @@ export default {
     //   return distinct;
     // },
     pbsDataLocalStorage() {
-      return pbsStore.dataLocalStorage();
+      const baba = pbsStore.dataLocalStorage();
+      return baba;
     },
+    //  setting computed variable from getter in pbsStore
+    pbsData() {
+      return getters.pbsData();
+    },
+    ...getters, // pbsData()
+  },
+  created() {
+    // fetching data from pbsStore at creation
+    this.fetchDataFromLocalStorage();
   },
 };
 </script>
