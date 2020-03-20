@@ -55,14 +55,9 @@ export const getters = {
   pbsData: () => pbsStore.data,
   cats: () => pbsStore.cats,
   types: () => pbsStore.types,
-  getTypeText(type) {
-    const objectLiteral = {
-      liq: 'Liquides Vermögen',
-      immo: 'Immobilien',
-      verbind: 'Verbindlichkeiten',
-    };
-    // const res = allTypes.type;
-    return objectLiteral[type];
+  getTypeText: () => (type) => {
+    const res = pbsStore.types.find((search) => search.value === type);
+    return res.text;
   },
 };
 
