@@ -12,114 +12,109 @@
             <!-- TODO: Select row parameters for b-table
             selectable
             select-mode="single"
-            @row-selected="onRowSelected" -->
+            @row-selected="onRowSelected"-->
             <b-table
-            outlined small fixed
-            stacked="sm"
-            :fields="fields"
-            :items="pbsData"
-            v-if="type.cat === k.value"
-            :filter="type.value"
-            :filter-function="filterPbs"
-            head-row-variant="info"
-            class=""
+              outlined
+              small
+              fixed
+              stacked="sm"
+              :fields="fields"
+              :items="pbsData"
+              v-if="type.cat === k.value"
+              :filter="type.value"
+              :filter-function="filterPbs"
+              head-row-variant="info"
+              class
             >
+              <!-- Display Type as Name in header -->
+              <template v-slot:head(name)>
+                <div class>{{ type.text }}</div>
+              </template>
 
-            <!-- Display Type as Name in header -->
-            <template v-slot:head(name)>
-              <div class="">{{ type.text }}</div>
-            </template>
-
-            <!-- TODO: Display calculated sum of Percent in header -->
-            <!-- <template v-slot:head(percent)>
+              <!-- TODO: Display calculated sum of Percent in header -->
+              <!-- <template v-slot:head(percent)>
               {{ calcKatPercent() }}
-            </template> -->
+              </template>-->
 
-            <!-- Display calculated sum of Value in header -->
-            <template v-slot:head(value)>
-              {{ calcTypeSum( type.value ) }}
-            </template>
+              <!-- Display calculated sum of Value in header -->
+              <template v-slot:head(value)>{{ calcTypeSum( type.value ) }}</template>
 
-            <!-- TODO: Display input on row selected -->
-            <!-- <template v-slot:cell(value)="data">
+              <!-- TODO: Display input on row selected -->
+              <!-- <template v-slot:cell(value)="data">
               <template v-if="true">
                 <b-input></b-input>
               </template>
               <template v-else>
               {{ data.item.value }}
               </template>
-            </template> -->
+              </template>-->
 
-            <!-- Display delete button in cells -->
-            <template v-slot:cell(delete)="data">
-                <b-link @click="deleteAktiva(data.item)">
-                <b-icon-trash-fill font-scale="1.5"></b-icon-trash-fill>
+              <!-- Display delete button in cells -->
+              <template v-slot:cell(delete)="data">
+                <b-link @click="deletePbsData(data.item)">
+                  <b-icon-trash-fill font-scale="1.5"></b-icon-trash-fill>
                 </b-link>
-            </template>
-
+              </template>
             </b-table>
           </div>
         </b-col>
       </b-row>
       <b-row>
         <b-col v-for="k in cats" :key="k.value">
-
           <div class="px-1 bg-info text-light d-flex flex-row justify-content-between">
-            <div class="d-flex"><b>Summe {{ k.text }}</b></div>
-            <div class="d-flex inline" >{{ calcCatSum(k.value) }}</div>
-            <div class="d-flex inline" ></div>
+            <div class="d-flex">
+              <b>Summe {{ k.text }}</b>
+            </div>
+            <div class="d-flex inline">{{ calcCatSum(k.value) }}</div>
+            <div class="d-flex inline"></div>
           </div>
         </b-col>
       </b-row>
       <!-- <b-button class="float-left" type="button" @click="debugInfo" variant="info">
         Debug
-      </b-button> -->
+      </b-button>-->
     </b-container>
   </div>
 </template>
 
 <script>
-import {
-  getters,
-  actions,
-  mutations,
-} from '@/pbsStore';
+import { getters, actions, mutations } from "@/pbsStore";
 
 export default {
-  name: 'PBSTable',
+  name: "PBSTable",
   data() {
     return {
       fields: [
-        { key: 'name', label: 'Name' },
+        { key: "name", label: "Name" },
         {
-          key: 'percent',
-          label: '100%',
+          key: "percent",
+          label: "100%",
           formatter: (val, key, item) => {
             // Get pre-calculated sum value of category to avoid recalculation on each call
-            const index = this.types.findIndex(({ value }) => value === item.type);
-            const result = ((item.value / this.types[index].sum) * 100).toFixed(2).concat('%');
+            const index = this.types.findIndex(
+              ({ value }) => value === item.type
+            );
+            const result = ((item.value / this.types[index].sum) * 100)
+              .toFixed(2)
+              .concat("%");
             return result;
-          },
+          }
         },
         {
-          key: 'value',
-          label: 'Value',
-          formatter: (item) => {
+          key: "value",
+          label: "Value",
+          formatter: item => {
             const result = this.formatCurrency(item);
             return result;
-          },
+          }
         },
-        { key: 'delete', label: 'Löschen' },
-      ],
+        { key: "delete", label: "Löschen" }
+      ]
     };
   },
   methods: {
     debugInfo() {
-      // console.log(this.pbsDataLocalStorage);
-      console.log(this.pbsData[0].value);
-    },
-    deleteAktiva(item) {
-      mutations.deletePbsData(item);
+      // console.log(this.pbsData[0].value);
     },
     filterPbs(value, filter) {
       if (value.type === filter) {
@@ -129,9 +124,9 @@ export default {
     },
     calcTypeSum(type) {
       let typeSum = 0;
-      const filteredData = this.pbsData.filter((filter) => filter.type === type);
-      filteredData.forEach((t) => {
-        typeSum += (parseFloat(t.value));
+      const filteredData = this.pbsData.filter(filter => filter.type === type);
+      filteredData.forEach(t => {
+        typeSum += parseFloat(t.value);
       });
       // Add category sum to array to avoid recalculations
       const index = this.types.findIndex(({ value }) => value === type);
@@ -140,9 +135,9 @@ export default {
     },
     calcCatSum(cat) {
       let catSum = 0;
-      const filteredData = this.pbsData.filter((filter) => filter.cat === cat);
-      filteredData.forEach((t) => {
-        catSum += (parseFloat(t.value));
+      const filteredData = this.pbsData.filter(filter => filter.cat === cat);
+      filteredData.forEach(t => {
+        catSum += parseFloat(t.value);
       });
       // Add category sum to array to avoid recalculations
       const index = this.cats.findIndex(({ value }) => value === cat);
@@ -150,7 +145,7 @@ export default {
       return this.formatCurrency(catSum);
     },
     ...mutations,
-    ...actions,
+    ...actions
     // On select row event
     // onRowSelected(items) {
     //   console.log(items);
@@ -180,12 +175,12 @@ export default {
     // },
 
     //  setting computed variable from getter in pbsStore
-    ...getters, // including all getters from pbsStore e.g. pbsData()
+    ...getters // including all getters from pbsStore e.g. pbsData()
   },
   created() {
     // fetching data from pbsStore at creation
     actions.fetchDataFromLocalStorage();
-  },
+  }
 };
 </script>
 
