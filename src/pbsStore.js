@@ -11,6 +11,7 @@ export const pbsStore = Vue.observable({
     { text: 'Liquides Vermögen', value: 'liq', cat: 'aktiva' },
     { text: 'Immobilien', value: 'immo', cat: 'aktiva' },
     { text: 'Verbindlichkeiten', value: 'verbind', cat: 'passiva' },
+    { text: 'Eigenkapital', value: 'eigenkapital', cat: 'passiva' },
   ],
   data: [
     // {
@@ -54,16 +55,23 @@ export const pbsStore = Vue.observable({
 export const getters = {
   pbsData: () => pbsStore.data,
   pbsDataFilter: () => (attr, filter) => {
-    const newarray = pbsStore.data.filter(function (el) {
+    return pbsStore.data.filter(function (el) {
       return el[attr] === filter;
     })
-    return newarray;
   },
   cats: () => pbsStore.cats,
   types: () => pbsStore.types,
   getTypeText: () => (type) => {
     const res = pbsStore.types.find((search) => search.value === type);
     return res.text;
+  },
+  getChartValues: () => () => {
+    let catData = pbsStore.data.filter(function (el) {
+      return el['cat'] === 'aktiva';
+    });
+    // let catData = getters.pbsDataFilter('cat', 'aktiva');
+    const catValues = catData.map((x) => parseInt(x.value))
+    return catValues;
   },
 };
 
@@ -76,7 +84,7 @@ export const mutations = {
   // add form data (array) to pbsStore.data and set localStorage
   addPbsData(data) {
     data.forEach((p) => pbsStore.data.push(p));
-    this.setPbsData(pbsStore.data);
+    this.setData(pbsStore.data);
   },
   deletePbsData(item) {
     // delete pbs data and set localStorage
@@ -88,7 +96,7 @@ export const mutations = {
   deletePbsAll() {
     // delete all pbs data
     pbsStore.data.splice(0, pbsStore.data.length);
-    this.setPbsData(pbsStore.data);
+    this.setData(pbsStore.data);
   },
 };
 

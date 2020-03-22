@@ -9,10 +9,6 @@
             <b>{{ k.text }}</b>
           </div>
           <div v-for="type in types" :key="type.value">
-            <!-- TODO: Select row parameters for b-table
-            selectable
-            select-mode="single"
-            @row-selected="onRowSelected"-->
             <b-table
               outlined
               small
@@ -30,23 +26,8 @@
                 <div class>{{ type.text }}</div>
               </template>
 
-              <!-- TODO: Display calculated sum of Percent in header -->
-              <!-- <template v-slot:head(percent)>
-              {{ calcKatPercent() }}
-              </template>-->
-
               <!-- Display calculated sum of Value in header -->
               <template v-slot:head(value)>{{ calcTypeSum( type.value ) }}</template>
-
-              <!-- TODO: Display input on row selected -->
-              <!-- <template v-slot:cell(value)="data">
-              <template v-if="true">
-                <b-input></b-input>
-              </template>
-              <template v-else>
-              {{ data.item.value }}
-              </template>
-              </template>-->
 
               <!-- Display delete button in cells -->
               <template v-slot:cell(delete)="data">
@@ -60,7 +41,9 @@
       </b-row>
       <b-row>
         <b-col v-for="k in cats" :key="k.value">
-          <div class="px-1 bg-info text-light d-flex flex-row justify-content-between rounded-bottom">
+          <div
+            class="px-1 bg-info text-light d-flex flex-row justify-content-between rounded-bottom"
+          >
             <div class="d-flex">
               <b>Summe {{ k.text }}</b>
             </div>
@@ -68,6 +51,9 @@
             <div class="d-flex inline"></div>
           </div>
         </b-col>
+      </b-row>
+      <b-row>
+        <PBSChart :width="300" :height="300"/>
       </b-row>
       <!-- <b-button class="float-left" type="button" @click="debugInfo" variant="info">
         Debug
@@ -78,11 +64,16 @@
 
 <script>
 import { getters, actions, mutations } from "@/pbsStore";
+import PBSChart from './PBSChart.vue';
 
 export default {
+  components: {
+    PBSChart,
+  },
   name: "PBSTable",
   data() {
     return {
+      loaded: false,
       fields: [
         { key: "name", label: "Name" },
         {
@@ -145,41 +136,15 @@ export default {
     },
     ...mutations,
     ...actions
-    // On select row event
-    // onRowSelected(items) {
-    //   console.log(items);
-    // },
   },
   computed: {
-    // TODO: Get unique values of types and pass to ForEach of b-table.
-    // Goal is that tables are not shown if there are no items with a type
-
-    // typesInPbsdata() {
-    //   // const uniqueValues = [...new Set(this.pbsdata.map((x) => x.type))];
-    //   // const uniqueValues = Array.from(new Set(this.pbsdata.map((item) => item.type)));
-    //   const unique = [];
-    //   const distinct = [];
-    //   for (let i = 0; i < this.pbsdata.length; i += 1) {
-    //     if (!unique[this.pbsdata[i].type]) {
-    //       const uniqueVal = { type: this.pbsdata[i].type, cat: this.pbsdata[i].cat };
-    //       // distinct.push(this.pbsdata[i].type);
-    //       // distinct.push(this.pbsdata[i].cat);
-    //       distinct.push(uniqueVal);
-
-    //       unique[this.pbsdata[i].type] = 1;
-    //     }
-    //   }
-    //   // console.log(distinct);
-    //   return distinct;
-    // },
-
     //  setting computed variable from getter in pbsStore
     ...getters // including all getters from pbsStore e.g. pbsData()
   },
   created() {
     // fetching data from pbsStore at creation
     actions.fetchDataFromLocalStorage();
-  }
+  },
 };
 </script>
 

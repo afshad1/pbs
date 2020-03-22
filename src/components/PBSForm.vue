@@ -75,6 +75,7 @@ export default {
           label: 'Passiva',
           options: [
             { value: { key: 'verbind', cat: 'passiva' }, text: 'Verbindlichkeiten' },
+            { value: { key: 'eigenkapital', cat: 'passiva' }, text: 'Eigenkapital' },
           ],
         },
       ],
@@ -123,21 +124,21 @@ export default {
           cat: 'aktiva',
           type: 'liq',
           name: 'Girokonten',
-          value: '100000',
+          value: '10000',
         },
         {
           id: uuidv4(),
           cat: 'aktiva',
           type: 'liq',
           name: 'Festgelder',
-          value: '100000',
+          value: '5000',
         },
         {
           id: uuidv4(),
           cat: 'aktiva',
           type: 'liq',
           name: 'Sparbücher',
-          value: '100000',
+          value: '3000',
         },
         {
           id: uuidv4(),
@@ -153,10 +154,23 @@ export default {
           name: 'Eigengenutzte Immobilien',
           value: '150000',
         },
+        {
+          id: uuidv4(),
+          cat: 'passiva',
+          type: 'verbind',
+          name: 'Darlehen',
+          value: '20000',
+        },
+        {
+          id: uuidv4(),
+          cat: 'passiva',
+          type: 'eigenkapital',
+          name: 'Eigenkapital',
+          value: '48000',
+        },
       ];
       mutations.addPbsData(sample);
     },
-    setPbsData: mutations.setPbsData,
   },
 };
 </script>
