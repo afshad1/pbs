@@ -5,7 +5,7 @@
         <!-- For each category in cats -->
         <b-col v-for="k in cats" :key="k.value">
           <!-- Header for Aktiva/Passiva -->
-          <div class="px-1 bg-info text-light">
+          <div class="px-1 bg-info text-light rounded-top">
             <b>{{ k.text }}</b>
           </div>
           <div v-for="type in types" :key="type.value">
@@ -60,7 +60,7 @@
       </b-row>
       <b-row>
         <b-col v-for="k in cats" :key="k.value">
-          <div class="px-1 bg-info text-light d-flex flex-row justify-content-between">
+          <div class="px-1 bg-info text-light d-flex flex-row justify-content-between rounded-bottom">
             <div class="d-flex">
               <b>Summe {{ k.text }}</b>
             </div>
