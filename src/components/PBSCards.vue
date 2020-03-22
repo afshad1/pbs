@@ -1,26 +1,36 @@
 <template>
-  <div class="shadow p-3 mb-5 bg-white rounded">
-    <b-card-group deck>
-      <template v-for="p in pbsData">
-        <b-card
-          :key="p.id"
-          :header="getTypeText(p.type)"
-          :header-bg-variant="getCardDesign(p.type)"
-          header-text-variant="white"
-          :title="p.name"
-          style="max-width: 15rem; min-width: 15rem;"
-          class="mb-2"
-        >
-          <b-card-text>{{ formatCurrency(p.value) }}</b-card-text>
+<div>
+  <template v-for="c in cats">
+    <b-container class="mt-2" :key="c.value">
+      <b-row class="border-dark bg-info text-white font-weight-bold rounded-top">
+        <b-col>{{ c.text }}</b-col>
+      </b-row>
+      <b-row>
+        <!-- Aktiva/Passiva Card -->
+        <b-col class="mb-1 shadow border-dark rounded">
+          <!-- Single cards -->
+          <b-card-group deck class="p-1">
+            <b-card
+            v-for="p in pbsDataFilter('cat', c.value)"
+            :key="p.id"
+            class="m-1"
+            style="max-width: 14rem; min-width: 12rem"
+            :title="p.name"
+            :sub-title="getTypeText(p.type)"
+            :footer="formatCurrency(p.value)"
+            @click="modalShow = !modalShow"
+            > 
+            <b-card-body><a href="#" class="stretched-link"></a></b-card-body>
+            </b-card>
+            <b-modal v-model="modalShow" >Todo</b-modal>
+        </b-card-group>
+        </b-col>
+      </b-row>
+    </b-container>
+  </template>
 
-          <!-- <b-button href="#" variant="primary" @click="testMethod()">Go somewhere</b-button> -->
-          <b-link>
-            <b-icon-trash-fill font-scale="1.5" @click="deletePbsData(p)"></b-icon-trash-fill>
-          </b-link>
-        </b-card>
-      </template>
-    </b-card-group>
-  </div>
+
+</div>
 </template>
 
 <script>
@@ -29,7 +39,9 @@ import { getters, actions, mutations } from "@/pbsStore";
 export default {
   name: "PBSCards",
   data() {
-    return {};
+    return {
+      modalShow: false
+    };
   },
   methods: {
     testMethod() {
@@ -42,6 +54,12 @@ export default {
         verbind: "danger"
       };
       return objectLiteral[val];
+    },
+    filterPbs(value, filter) {
+      if (value.type === filter) {
+        return false;
+      }
+      return false;
     },
     ...mutations
   },

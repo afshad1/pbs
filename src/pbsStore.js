@@ -53,6 +53,12 @@ export const pbsStore = Vue.observable({
 
 export const getters = {
   pbsData: () => pbsStore.data,
+  pbsDataFilter: () => (attr, filter) => {
+    const newarray = pbsStore.data.filter(function (el) {
+      return el[attr] === filter;
+    })
+    return newarray;
+  },
   cats: () => pbsStore.cats,
   types: () => pbsStore.types,
   getTypeText: () => (type) => {
@@ -67,11 +73,6 @@ export const mutations = {
     pbsStore.data = data;
     localStorage.setItem(pbsStore.STORAGE_KEY, JSON.stringify(data));
   },
-
-  // set data to localStorage
-  setPbsData(data) {
-    localStorage.setItem(pbsStore.STORAGE_KEY, JSON.stringify(data));
-  },
   // add form data (array) to pbsStore.data and set localStorage
   addPbsData(data) {
     data.forEach((p) => pbsStore.data.push(p));
@@ -83,7 +84,6 @@ export const mutations = {
     const index = pbsStore.data.map((x) => x.id).indexOf(id);
     pbsStore.data.splice(index, 1);
     this.setData(pbsStore.data);
-    // this.setPbsData(pbsStore.data);
   },
   deletePbsAll() {
     // delete all pbs data

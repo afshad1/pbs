@@ -24,7 +24,6 @@
               :filter="type.value"
               :filter-function="filterPbs"
               head-row-variant="info"
-              class
             >
               <!-- Display Type as Name in header -->
               <template v-slot:head(name)>
