@@ -2,31 +2,27 @@
   <div id="app">
     <b-navbar type="dark" variant="info">
     <b-navbar-brand href="#">Private Bilanzerstellung</b-navbar-brand>
-    <b-form-checkbox v-model="cardView" switch class="mr-n2">
+    <b-form-checkbox v-model="cardView" switch class="mr-n2" @change="changeView">
         <span class="sr-only">Switch for following text input</span>
       </b-form-checkbox>
     </b-navbar>
 
-    <PBSForm v-show="!cardView"/>
-
-    <PBSTable v-show="!cardView"/>
-
-    <PBSCards v-show="cardView"/>
+    <PBSForm />
+    <router-view />
+        <PBSChart :width="300" :height="300"/>
 
   </div>
 </template>
 
 <script>
 import PBSForm from './components/PBSForm.vue';
-import PBSTable from './components/PBSTable.vue';
-import PBSCards from './components/PBSCards.vue';
+import PBSChart from './components/PBSChart.vue';
 
 export default {
   name: 'App',
   components: {
     PBSForm,
-    PBSTable,
-    PBSCards,
+    PBSChart
   },
   data() {
     return {
@@ -34,7 +30,13 @@ export default {
     };
   },
   methods: {
-
+    changeView() {
+      if (!this.cardView) {
+        this.$router.push('/cards');
+      } else {
+        this.$router.push({ name: 'PBSTable'});
+      }
+    },
   },
 };
 </script>

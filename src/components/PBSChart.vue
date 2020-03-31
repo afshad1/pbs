@@ -91,8 +91,15 @@ export default {
     actions.fetchDataFromLocalStorage();
   },
   mounted() {
-    this.renderChart(this.chartData, this.options);
+    this.renderChart(this.aktivaChartData, this.options);
   },
+  watch: {
+    aktivaChartData() {
+      console.log('new data from watcher')
+      
+      this.renderChart(this.aktivaChartData, this.options);
+    }
+  }
 };
 </script>
 

@@ -52,9 +52,6 @@
           </div>
         </b-col>
       </b-row>
-      <b-row>
-        <PBSChart :width="300" :height="300"/>
-      </b-row>
       <!-- <b-button class="float-left" type="button" @click="debugInfo" variant="info">
         Debug
       </b-button>-->
@@ -64,11 +61,8 @@
 
 <script>
 import { getters, actions, mutations } from "@/pbsStore";
-import PBSChart from './PBSChart.vue';
-
 export default {
   components: {
-    PBSChart,
   },
   name: "PBSTable",
   data() {
