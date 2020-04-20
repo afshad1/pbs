@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "pbsvue",
   "version": "0.1.0",
@@ -47,3 +48,54 @@
     "last 2 versions"
   ]
 }
+=======
+{
+  "name": "pbsvue",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.6.0",
+    "chart.js": "^2.9.3",
+    "core-js": "^3.6.4",
+    "uuid": "^7.0.3",
+    "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.0",
+    "vue-router": "^3.1.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/airbnb"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
+>>>>>>> d87ba980be4e086e0c810b9ec1174e607702463e
