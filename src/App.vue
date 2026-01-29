@@ -32,18 +32,18 @@
             </button>
           </div>
         </div>
-        <div class="grid gap-4 md:grid-cols-3">
-          <div class="rounded-2xl bg-white/10 p-4 backdrop-blur">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="w-full rounded-2xl bg-white/10 p-5 backdrop-blur">
             <p class="text-xs uppercase tracking-wide text-slate-300">Aktiva</p>
             <p class="mt-2 text-2xl font-semibold">{{ formatCurrency(store.totalAktiva) }}</p>
             <p class="mt-1 text-xs text-emerald-200">Summe aller Vermögenswerte</p>
           </div>
-          <div class="rounded-2xl bg-white/10 p-4 backdrop-blur">
+          <div class="w-full rounded-2xl bg-white/10 p-5 backdrop-blur">
             <p class="text-xs uppercase tracking-wide text-slate-300">Passiva</p>
             <p class="mt-2 text-2xl font-semibold">{{ formatCurrency(store.totalPassiva) }}</p>
             <p class="mt-1 text-xs text-rose-200">Summe aller Verbindlichkeiten</p>
           </div>
-          <div class="rounded-2xl bg-white/10 p-4 backdrop-blur">
+          <div class="w-full rounded-2xl bg-white/10 p-5 backdrop-blur">
             <p class="text-xs uppercase tracking-wide text-slate-300">Netto</p>
             <p class="mt-2 text-2xl font-semibold">{{ formatCurrency(store.netWorth) }}</p>
             <p class="mt-1 text-xs text-slate-200">Aktiva minus Passiva</p>
@@ -52,7 +52,7 @@
       </div>
     </header>
 
-    <main class="-mt-10 pb-16">
+    <main class="mt-8 pb-16">
       <div class="mx-auto grid w-full max-w-6xl gap-6 px-6 lg:grid-cols-[2fr,1fr]">
         <section class="rounded-3xl bg-white p-6 shadow-soft">
           <PBSForm />
