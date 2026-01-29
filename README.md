@@ -1,24 +1,23 @@
-# Private Balance Sheet (working title)
+# Private Balance Sheet
 
-## Project setup
+Modernisierte Vue-3-Anwendung für private Aktiva/Passiva-Übersichten mit Tailwind UI und Chart-Visualisierung.
+
+## Setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## Development
 ```
-npm run serve
+npm run dev
 ```
 
-### Compiles and minifies for production
+## Build
 ```
 npm run build
 ```
 
-### Lints and fixes files
+## Preview
 ```
-npm run lint
+npm run preview
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
